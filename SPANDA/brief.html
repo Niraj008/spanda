@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Revision Brief — Spanda</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="brief.css">
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="logo">Spanda</div>
+    <nav>
+      <a href="index.html" class="nav-link">Home</a>
+    </nav>
+  </header>
+
+
+  <!-- PAGE BODY -->
+  <main class="brief-main">
+
+    <!-- Left: Project info + progress -->
+    <div class="brief-left">
+
+      <p class="page-label">Revision brief</p>
+      <h1 class="page-title" id="brief-project-name">Nike Ad — Final Cut v2</h1>
+      <p class="brief-meta">Client: <span id="brief-client-name">Nike</span></p>
+      <p class="brief-meta">Round: <span id="brief-round">1</span></p>
+      <p class="brief-meta">Generated: <span id="brief-date"></span></p>
+
+      <!-- Progress ring -->
+      <div class="progress-box">
+        <div class="progress-numbers">
+          <span class="progress-done" id="progress-done">0</span>
+          <span class="progress-sep">/</span>
+          <span class="progress-total" id="progress-total">0</span>
+        </div>
+        <p class="progress-label">tasks completed</p>
+        <div class="progress-bar-track">
+          <div class="progress-bar-fill" id="progress-bar-fill"></div>
+        </div>
+      </div>
+
+      <!-- Original feedback -->
+      <div class="original-feedback-box">
+        <p class="original-feedback-label">Client's original feedback</p>
+        <p class="original-feedback-text" id="original-feedback-text">
+          "Needs more energy. Something about the pacing isn't working."
+        </p>
+      </div>
+
+      <!-- Client's clarification -->
+      <div class="original-feedback-box">
+        <p class="original-feedback-label">Client clarified</p>
+        <p class="original-feedback-text" id="client-clarification">
+          "The editing pace"
+        </p>
+      </div>
+
+    </div>
+
+
+    <!-- Right: The task list -->
+    <div class="brief-right">
+
+      <div class="tasks-header">
+        <p class="page-label">Action items</p>
+        <button class="btn-reset" id="reset-btn">Reset all</button>
+      </div>
+
+      <!-- Tasks are injected here by JS -->
+      <div class="task-list" id="task-list"></div>
+
+      <!-- All done state -->
+      <div class="all-done-box" id="all-done-box" style="display:none;">
+        <p class="all-done-icon">✓</p>
+        <h2 class="all-done-title">All done!</h2>
+        <p class="all-done-text">All revision tasks are complete. Time to share the next version with your client.</p>
+        <a href="upload.html" class="btn-primary">Upload next version</a>
+      </div>
+
+      <!-- Share brief -->
+      <div class="share-box">
+        <p class="share-label">Share this brief</p>
+        <div class="share-row">
+          <input
+            class="share-input"
+            id="share-link"
+            type="text"
+            value="https://spanda.vercel.app/brief.html"
+            readonly
+          />
+          <button class="btn-copy" id="copy-btn">Copy</button>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+</body>
+
+<script src="brief.js"></script>
+
+</html>

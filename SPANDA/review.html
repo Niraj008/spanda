@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Review — Spanda</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="review.css">
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="logo">Spanda</div>
+    <nav>
+      <a href="index.html" class="nav-link">Home</a>
+    </nav>
+  </header>
+
+
+  <!-- PAGE BODY -->
+  <main class="review-main">
+
+    <!-- Left: The work being reviewed -->
+    <div class="review-left">
+
+      <p class="page-label">Reviewing</p>
+      <h1 class="page-title" id="review-project-name">Nike Ad — Final Cut v2</h1>
+      <p class="review-client-label">Client: <span id="review-client-name">Nike</span></p>
+
+      <!-- The uploaded file -->
+      <div class="review-media">
+        <div class="media-placeholder" id="media-placeholder">
+          <p class="media-placeholder-text">No file uploaded</p>
+        </div>
+        <img id="review-image" src="" alt="Project preview" style="display:none;" />
+        <video id="review-video" controls style="display:none;"></video>
+      </div>
+
+      <!-- Artist's note -->
+      <div class="artist-note-box" id="artist-note-box" style="display:none;">
+        <p class="artist-note-label">Note from artist</p>
+        <p class="artist-note-text" id="artist-note-text"></p>
+      </div>
+
+    </div>
+
+
+    <!-- Right: The feedback conversation -->
+    <div class="review-right">
+
+      <!-- =====================
+           STATE 1: Initial feedback
+           ===================== -->
+      <div class="feedback-state" id="state-feedback">
+        <p class="page-label">Your feedback</p>
+        <h2 class="state-title">What do you think?</h2>
+        <p class="state-subtitle">Share your honest reaction. Don't worry about being too technical — just say what you feel.</p>
+
+        <textarea
+          class="feedback-input"
+          id="feedback-input"
+          placeholder="e.g. It feels off. Needs more energy. Something about the pacing isn't working..."
+          rows="5"
+        ></textarea>
+
+        <button class="btn-primary btn-full" id="submit-feedback-btn">
+          Submit feedback
+        </button>
+      </div>
+
+
+      <!-- =====================
+           STATE 2: Clarifying question
+           ===================== -->
+      <div class="feedback-state" id="state-question" style="display:none;">
+        <p class="page-label">Spanda is asking</p>
+
+        <!-- Shows the client's original feedback -->
+        <div class="original-feedback-box">
+          <p class="original-feedback-label">You said</p>
+          <p class="original-feedback-text" id="original-feedback-display"></p>
+        </div>
+
+        <!-- AI's clarifying question -->
+        <div class="ai-question-box">
+          <div class="ai-thinking" id="ai-thinking">
+            <div class="thinking-dots">
+              <span></span><span></span><span></span>
+            </div>
+            <p class="thinking-text">Spanda is reading your feedback...</p>
+          </div>
+
+          <div class="ai-question-content" id="ai-question-content" style="display:none;">
+            <h2 class="ai-question-text" id="ai-question-text"></h2>
+            <div class="ai-options" id="ai-options"></div>
+
+            <button class="btn-primary btn-full" id="submit-answer-btn" style="display:none;">
+              Generate revision brief
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+
+      <!-- =====================
+           STATE 3: Revision brief
+           ===================== -->
+      <div class="feedback-state" id="state-brief" style="display:none;">
+        <p class="page-label">Revision brief</p>
+        <h2 class="state-title">Here's what the artist needs to do</h2>
+
+        <div class="brief-output" id="brief-output">
+          <div class="ai-thinking" id="brief-thinking">
+            <div class="thinking-dots">
+              <span></span><span></span><span></span>
+            </div>
+            <p class="thinking-text">Generating revision brief...</p>
+          </div>
+          <ul class="brief-output-list" id="brief-output-list" style="display:none;"></ul>
+        </div>
+
+        <button class="btn-secondary btn-full-secondary" id="start-over-btn">
+          Submit another round of feedback
+        </button>
+      </div>
+
+    </div>
+
+  </main>
+
+</body>
+
+<script src="review.js"></script>
+
+</html>

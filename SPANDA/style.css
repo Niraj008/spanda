@@ -1,0 +1,330 @@
+/* ============================================================
+   RESET & BASE
+   Browsers add their own default styles. This removes them
+   so we start from a clean, consistent slate.
+   ============================================================ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 16px;
+  line-height: 1.7;
+  color: #1a1a1a;
+  background-color: #ffffff;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+
+.site-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 2rem;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.logo {
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: #1a1a1a;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.nav-link {
+  font-size: 14px;
+  color: #666;
+}
+
+.nav-link:hover {
+  color: #1a1a1a;
+}
+
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+
+.btn-primary {
+  display: inline-block;
+  background-color: #1a1a1a;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background-color: #333;
+}
+
+
+/* ============================================================
+   HERO
+   ============================================================ */
+
+.hero {
+  text-align: center;
+  padding: 5rem 2rem 4rem;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.hero-label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #999;
+  margin-bottom: 1.25rem;
+}
+
+.hero-title {
+  font-size: 42px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  color: #1a1a1a;
+  margin-bottom: 1.25rem;
+}
+
+.hero-subtitle {
+  font-size: 18px;
+  color: #555;
+  line-height: 1.7;
+  margin-bottom: 2rem;
+}
+
+
+/* ============================================================
+   DEMO BOX
+   ============================================================ */
+
+.demo-section {
+  background-color: #f7f7f5;
+  padding: 3rem 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.demo-box {
+  background: #ffffff;
+  border: 1px solid #e8e8e8;
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 480px;
+  width: 100%;
+}
+
+.demo-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #999;
+  margin-bottom: 0.5rem;
+}
+
+.demo-quote {
+  font-size: 18px;
+  color: #1a1a1a;
+  font-style: italic;
+  margin-bottom: 1.5rem;
+}
+
+.demo-question {
+  font-size: 15px;
+  color: #444;
+  margin-bottom: 1rem;
+}
+
+.tag-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag {
+  background: #f0f0ee;
+  border: 1px solid #e0e0de;
+  border-radius: 6px;
+  padding: 6px 14px;
+  font-size: 13px;
+  color: #333;
+  cursor: pointer;
+}
+
+.tag:hover {
+  background: #e8e8e6;
+}
+
+
+/* ============================================================
+   HOW IT WORKS
+   ============================================================ */
+
+.how-section {
+  padding: 4rem 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.section-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #999;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+.step-card {
+  background: #ffffff;
+  border: 1px solid #e8e8e8;
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+.step-num {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  color: #bbb;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.75rem;
+}
+
+.step-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 0.5rem;
+}
+
+.step-desc {
+  font-size: 13px;
+  color: #777;
+  line-height: 1.6;
+}
+
+
+/* ============================================================
+   REVISION BRIEF
+   ============================================================ */
+
+.brief-section {
+  background: #f7f7f5;
+  padding: 4rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.brief-card {
+  background: #ffffff;
+  border: 1px solid #e8e8e8;
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 520px;
+  width: 100%;
+}
+
+.brief-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 1.25rem;
+}
+
+.brief-list {
+  list-style: none;
+  padding: 0;
+}
+
+.brief-list li {
+  font-size: 15px;
+  color: #1a1a1a;
+  padding: 0.75rem 0;
+  padding-left: 1.25rem;
+  border-bottom: 1px solid #f0f0ee;
+  position: relative;
+}
+
+.brief-list li::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: #bbb;
+}
+
+.brief-list li:last-child {
+  border-bottom: none;
+}
+
+
+/* ============================================================
+   CTA
+   ============================================================ */
+
+.cta-section {
+  text-align: center;
+  padding: 5rem 2rem;
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+.cta-title {
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #1a1a1a;
+  margin-bottom: 1rem;
+}
+
+.cta-subtitle {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+
+.site-footer {
+  border-top: 1px solid #e8e8e8;
+  padding: 1.5rem 2rem;
+  text-align: center;
+  font-size: 13px;
+  color: #aaa;
+}

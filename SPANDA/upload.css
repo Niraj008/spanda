@@ -1,0 +1,281 @@
+/* ============================================================
+   UPLOAD PAGE LAYOUT
+   ============================================================ */
+
+.upload-main {
+  display: flex;
+  gap: 3rem;
+  padding: 3rem 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.upload-form-side {
+  flex: 1;
+}
+
+.upload-preview-side {
+  width: 340px;
+  flex-shrink: 0;
+}
+
+
+/* ============================================================
+   PAGE HEADING
+   ============================================================ */
+
+.page-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #999;
+  margin-bottom: 0.5rem;
+}
+
+.page-title {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #1a1a1a;
+  margin-bottom: 0.75rem;
+}
+
+.page-subtitle {
+  font-size: 15px;
+  color: #666;
+  line-height: 1.7;
+  margin-bottom: 2rem;
+}
+
+
+/* ============================================================
+   FORM FIELDS
+   ============================================================ */
+
+.field-group {
+  margin-bottom: 1.5rem;
+}
+
+.field-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 0.4rem;
+}
+
+.field-optional {
+  font-weight: 400;
+  color: #aaa;
+}
+
+.field-input {
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 15px;
+  color: #1a1a1a;
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  outline: none;
+  font-family: inherit;
+}
+
+.field-input:focus {
+  border-color: #1a1a1a;
+}
+
+.field-textarea {
+  resize: vertical;
+  line-height: 1.6;
+}
+
+
+/* ============================================================
+   DROPZONE
+   ============================================================ */
+
+.upload-dropzone {
+  border: 1.5px dashed #d0d0d0;
+  border-radius: 12px;
+  padding: 2.5rem 1.5rem;
+  text-align: center;
+  background: #fafafa;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.upload-dropzone:hover {
+  border-color: #999;
+}
+
+.upload-dropzone.dragover {
+  border-color: #1a1a1a;
+  background: #f0f0f0;
+}
+
+.dropzone-icon {
+  font-size: 28px;
+  color: #bbb;
+  margin-bottom: 0.75rem;
+}
+
+.dropzone-text {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 0.25rem;
+}
+
+.dropzone-subtext {
+  font-size: 13px;
+  color: #aaa;
+  margin-bottom: 0.75rem;
+}
+
+.dropzone-hint {
+  font-size: 12px;
+  color: #bbb;
+  margin-top: 0.75rem;
+}
+
+
+/* ============================================================
+   FILE SELECTED STATE
+   ============================================================ */
+
+.file-selected {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #f0f7f0;
+  border: 1px solid #c8e6c8;
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin-top: 0.75rem;
+}
+
+.file-selected-icon {
+  color: #4caf50;
+  font-weight: 700;
+}
+
+.file-selected-name {
+  font-size: 14px;
+  color: #1a1a1a;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.file-remove {
+  font-size: 13px;
+  color: #999;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.file-remove:hover {
+  color: #e53935;
+}
+
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+
+.btn-secondary {
+  display: inline-block;
+  background: #ffffff;
+  color: #1a1a1a;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 8px 18px;
+  border-radius: 8px;
+  border: 1px solid #d0d0d0;
+  cursor: pointer;
+}
+
+.btn-secondary:hover {
+  border-color: #999;
+}
+
+.btn-full {
+  width: 100%;
+  padding: 14px;
+  font-size: 15px;
+  text-align: center;
+  border: none;
+}
+
+.submit-hint {
+  font-size: 13px;
+  color: #aaa;
+  text-align: center;
+  margin-top: 0.75rem;
+}
+
+
+/* ============================================================
+   PREVIEW CARD
+   ============================================================ */
+
+.preview-card {
+  background: #ffffff;
+  border: 1px solid #e8e8e8;
+  border-radius: 12px;
+  overflow: hidden;
+  position: sticky;
+  top: 2rem;
+}
+
+.preview-empty {
+  background: #f7f7f5;
+  height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.preview-empty-text {
+  font-size: 13px;
+  color: #bbb;
+  text-align: center;
+}
+
+.preview-filled img,
+.preview-filled video {
+  width: 100%;
+  max-height: 220px;
+  object-fit: cover;
+  display: block;
+}
+
+.preview-meta {
+  padding: 1rem 1.25rem;
+  border-top: 1px solid #f0f0ee;
+}
+
+.preview-project-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 2px;
+}
+
+.preview-client-name {
+  font-size: 13px;
+  color: #999;
+  margin-bottom: 6px;
+}
+
+.preview-note {
+  font-size: 13px;
+  color: #666;
+  font-style: italic;
+  line-height: 1.5;
+}
