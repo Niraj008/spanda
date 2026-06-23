@@ -2,8 +2,8 @@
 // SUPABASE SETUP
 // ============================================================
 
-const SUPABASE_URL = https;//ryflnqxlahjjuofxjjor.supabase.co;
-const SUPABASE_KEY = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ5ZmxucXhsYWhqanVvZnhqam9yIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIxMTU4NDcsImV4cCI6MjA5NzY5MTg0N30._vb7V1PA7kI-WJPrkptiRuyKRDDk5yJd5NKufWRNui4;
+const SUPABASE_URL = 'https://ryflnqxlahjjuofxjjor.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ5ZmxucXhsYWhqanVvZnhqam9yIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIxMTU4NDcsImV4cCI6MjA5NzY5MTg0N30._vb7V1PA7kI-WJPrkptiRuyKRDDk5yJd5NKufWRNui4';
 
 
 // ============================================================
@@ -113,12 +113,10 @@ document.getElementById('submit-btn').addEventListener('click', async function()
   const clientName  = clientNameInput.value.trim();
   const artistNote  = artistNoteInput.value.trim();
 
-  // Validate
   if (!projectName) { alert('Please enter a project name.'); return; }
   if (!clientName)  { alert('Please enter a client name.');  return; }
   if (!selectedFile) { alert('Please upload a file.');       return; }
 
-  // Update button state
   const btn = document.getElementById('submit-btn');
   btn.textContent = 'Uploading...';
   btn.disabled = true;
@@ -154,10 +152,10 @@ document.getElementById('submit-btn').addEventListener('click', async function()
       {
         method: 'POST',
         headers: {
-          'Authorization':  `Bearer ${SUPABASE_KEY}`,
-          'apikey':         SUPABASE_KEY,
-          'Content-Type':   'application/json',
-          'Prefer':         'return=representation'
+          'Authorization': `Bearer ${SUPABASE_KEY}`,
+          'apikey':        SUPABASE_KEY,
+          'Content-Type':  'application/json',
+          'Prefer':        'return=representation'
         },
         body: JSON.stringify({
           project_name: projectName,
@@ -178,9 +176,6 @@ document.getElementById('submit-btn').addEventListener('click', async function()
     // Step 4 — Show the shareable review link
     const reviewLink = `${window.location.origin}/review.html?project=${projectId}`;
 
-    btn.textContent = 'Project created!';
-
-    // Replace the submit button area with the link
     const submitArea = btn.parentNode;
     submitArea.innerHTML = `
       <div class="success-box">
