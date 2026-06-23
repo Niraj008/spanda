@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard — Spanda</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="dashboard.css">
+</head>
+
+<body>
+
+  <header class="site-header">
+    <div class="logo">Spanda</div>
+    <nav>
+      <span class="nav-user" id="nav-user"></span>
+      <button class="btn-logout" id="logout-btn">Log out</button>
+    </nav>
+  </header>
+
+  <main class="dashboard-main">
+
+    <!-- Top bar -->
+    <div class="dashboard-topbar">
+      <div>
+        <p class="page-label">Dashboard</p>
+        <h1 class="page-title" id="welcome-message">Welcome back</h1>
+      </div>
+      <a href="upload.html" class="btn-primary">+ New project</a>
+    </div>
+
+    <!-- Projects list -->
+    <div class="projects-section">
+
+      <!-- Loading state -->
+      <div class="projects-loading" id="projects-loading">
+        <p class="loading-text">Loading your projects...</p>
+      </div>
+
+      <!-- Empty state -->
+      <div class="projects-empty" id="projects-empty" style="display:none;">
+        <p class="empty-icon">📁</p>
+        <h2 class="empty-title">No projects yet</h2>
+        <p class="empty-text">Upload your first piece of work to get started.</p>
+        <a href="upload.html" class="btn-primary">Upload work</a>
+      </div>
+
+      <!-- Projects grid -->
+      <div class="projects-grid" id="projects-grid" style="display:none;"></div>
+
+    </div>
+
+  </main>
+
+</body>
+
+<script src="dashboard.js"></script>
+
+</html>

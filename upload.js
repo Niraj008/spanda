@@ -7,6 +7,14 @@ const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 
 
 // ============================================================
+// GET LOGGED IN USER
+// ============================================================
+
+const session = JSON.parse(localStorage.getItem('spanda_session'));
+const userId  = session?.user?.id || null;
+
+
+// ============================================================
 // LIVE PREVIEW — updates the right side as the artist types
 // ============================================================
 
@@ -35,11 +43,11 @@ artistNoteInput.addEventListener('input', function() {
 // FILE UPLOAD — handles file selection and preview
 // ============================================================
 
-const fileInput    = document.getElementById('file-input');
-const dropzone     = document.getElementById('dropzone');
-const fileSelected = document.getElementById('file-selected');
-const fileName     = document.getElementById('file-name');
-const fileRemove   = document.getElementById('file-remove');
+const fileInput     = document.getElementById('file-input');
+const dropzone      = document.getElementById('dropzone');
+const fileSelected  = document.getElementById('file-selected');
+const fileName      = document.getElementById('file-name');
+const fileRemove    = document.getElementById('file-remove');
 const previewEmpty  = document.getElementById('preview-empty');
 const previewFilled = document.getElementById('preview-filled');
 const previewImage  = document.getElementById('preview-image');
@@ -72,7 +80,7 @@ dropzone.addEventListener('drop', function(e) {
 
 function handleFile(file) {
   selectedFile = file;
-  fileName.textContent = file.name;
+  fileName.textContent       = file.name;
   dropzone.style.display     = 'none';
   fileSelected.style.display = 'flex';
   previewEmpty.style.display  = 'none';
@@ -81,25 +89,25 @@ function handleFile(file) {
   const fileURL = URL.createObjectURL(file);
 
   if (file.type.startsWith('image/')) {
-    previewImage.src = fileURL;
+    previewImage.src           = fileURL;
     previewImage.style.display = 'block';
     previewVideo.style.display = 'none';
   } else if (file.type.startsWith('video/')) {
-    previewVideo.src = fileURL;
+    previewVideo.src           = fileURL;
     previewVideo.style.display = 'block';
     previewImage.style.display = 'none';
   }
 }
 
 fileRemove.addEventListener('click', function() {
-  selectedFile = null;
-  fileInput.value = '';
+  selectedFile               = null;
+  fileInput.value            = '';
   dropzone.style.display     = 'block';
   fileSelected.style.display = 'none';
   previewEmpty.style.display  = 'flex';
   previewFilled.style.display = 'none';
-  previewImage.src = '';
-  previewVideo.src = '';
+  previewImage.src           = '';
+  previewVideo.src           = '';
 });
 
 
@@ -113,13 +121,13 @@ document.getElementById('submit-btn').addEventListener('click', async function()
   const clientName  = clientNameInput.value.trim();
   const artistNote  = artistNoteInput.value.trim();
 
-  if (!projectName) { alert('Please enter a project name.'); return; }
-  if (!clientName)  { alert('Please enter a client name.');  return; }
-  if (!selectedFile) { alert('Please upload a file.');       return; }
+  if (!projectName)  { alert('Please enter a project name.'); return; }
+  if (!clientName)   { alert('Please enter a client name.');  return; }
+  if (!selectedFile) { alert('Please upload a file.');        return; }
 
-  const btn = document.getElementById('submit-btn');
-  btn.textContent = 'Uploading...';
-  btn.disabled = true;
+  const btn        = document.getElementById('submit-btn');
+  btn.textContent  = 'Uploading...';
+  btn.disabled     = true;
 
   try {
 
@@ -133,7 +141,7 @@ document.getElementById('submit-btn').addEventListener('click', async function()
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${SUPABASE_KEY}`,
-          'Content-Type': selectedFile.type
+          'Content-Type':  selectedFile.type
         },
         body: selectedFile
       }
@@ -146,7 +154,7 @@ document.getElementById('submit-btn').addEventListener('click', async function()
     // Step 2 — Build the public file URL
     const fileURL = `${SUPABASE_URL}/storage/v1/object/public/project-files/${fileNameUniq}`;
 
-    // Step 3 — Save project to database
+    // Step 3 — Save project to database with user_id
     const projectResponse = await fetch(
       `${SUPABASE_URL}/rest/v1/projects`,
       {
@@ -161,7 +169,8 @@ document.getElementById('submit-btn').addEventListener('click', async function()
           project_name: projectName,
           client_name:  clientName,
           artist_note:  artistNote,
-          file_url:     fileURL
+          file_url:     fileURL,
+          user_id:      userId
         })
       }
     );
@@ -176,7 +185,7 @@ document.getElementById('submit-btn').addEventListener('click', async function()
     // Step 4 — Show the shareable review link
     const reviewLink = `${window.location.origin}/review.html?project=${projectId}`;
 
-    const submitArea = btn.parentNode;
+    const submitArea     = btn.parentNode;
     submitArea.innerHTML = `
       <div class="success-box">
         <p class="success-title">Project created!</p>
@@ -202,7 +211,7 @@ document.getElementById('submit-btn').addEventListener('click', async function()
     console.error(error);
     alert('Something went wrong. Please try again.');
     btn.textContent = 'Create project and get review link';
-    btn.disabled = false;
+    btn.disabled    = false;
   }
 
 });
