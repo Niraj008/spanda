@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Log In — Spanda</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="auth.css">
+</head>
+
+<body>
+
+  <header class="site-header">
+    <div class="logo">Spanda</div>
+    <nav>
+      <a href="signup.html" class="nav-link">Sign up</a>
+    </nav>
+  </header>
+
+  <main class="auth-main">
+    <div class="auth-card">
+
+      <p class="page-label">Welcome back</p>
+      <h1 class="auth-title">Log in to Spanda</h1>
+      <p class="auth-subtitle">Continue where you left off.</p>
+
+      <div class="field-group">
+        <label class="field-label" for="email">Email</label>
+        <input class="field-input" type="email" id="email" placeholder="you@studio.com" />
+      </div>
+
+      <div class="field-group">
+        <label class="field-label" for="password">Password</label>
+        <input class="field-input" type="password" id="password" placeholder="Your password" />
+      </div>
+
+      <button class="btn-primary btn-full" id="login-btn">Log in</button>
+
+      <p class="auth-error" id="auth-error" style="display:none;"></p>
+
+      <p class="auth-switch">Don't have an account? <a href="signup.html" class="auth-link">Sign up</a></p>
+
+    </div>
+  </main>
+
+</body>
+
+<script src="auth.js"></script>
+
+</html>

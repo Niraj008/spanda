@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up — Spanda</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="auth.css">
+</head>
+
+<body>
+
+  <header class="site-header">
+    <div class="logo">Spanda</div>
+    <nav>
+      <a href="login.html" class="nav-link">Log in</a>
+    </nav>
+  </header>
+
+  <main class="auth-main">
+    <div class="auth-card">
+
+      <p class="page-label">Get started</p>
+      <h1 class="auth-title">Create your account</h1>
+      <p class="auth-subtitle">Start turning vague feedback into clear revision tasks.</p>
+
+      <div class="field-group">
+        <label class="field-label" for="email">Email</label>
+        <input class="field-input" type="email" id="email" placeholder="you@studio.com" />
+      </div>
+
+      <div class="field-group">
+        <label class="field-label" for="password">Password</label>
+        <input class="field-input" type="password" id="password" placeholder="Min 6 characters" />
+      </div>
+
+      <div class="field-group">
+        <label class="field-label" for="full-name">Your name</label>
+        <input class="field-input" type="text" id="full-name" placeholder="e.g. Arjun Sharma" />
+      </div>
+
+      <button class="btn-primary btn-full" id="signup-btn">Create account</button>
+
+      <p class="auth-error" id="auth-error" style="display:none;"></p>
+
+      <p class="auth-switch">Already have an account? <a href="login.html" class="auth-link">Log in</a></p>
+
+    </div>
+  </main>
+
+</body>
+
+<script src="auth.js"></script>
+
+</html>
