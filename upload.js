@@ -79,7 +79,7 @@ dropzone.addEventListener('drop', function(e) {
 });
 
 function handleFile(file) {
-  selectedFile = file;
+  selectedFile               = file;
   fileName.textContent       = file.name;
   dropzone.style.display     = 'none';
   fileSelected.style.display = 'flex';
@@ -125,9 +125,40 @@ document.getElementById('submit-btn').addEventListener('click', async function()
   if (!clientName)   { alert('Please enter a client name.');  return; }
   if (!selectedFile) { alert('Please upload a file.');        return; }
 
-  const btn        = document.getElementById('submit-btn');
-  btn.textContent  = 'Uploading...';
-  btn.disabled     = true;
+  const btn       = document.getElementById('submit-btn');
+  btn.textContent = 'Checking your plan...';
+  btn.disabled    = true;
+
+  // ============================================================
+  // USAGE CHECK — block free users after 1 project per month
+  // ============================================================
+
+  if (userId) {
+    const now        = new Date();
+    const monthStart = new Date(now.getFullYear(), now.getMonth(), 1).toISOString();
+
+    const usageResponse = await fetch(
+      `${SUPABASE_URL}/rest/v1/projects?user_id=eq.${userId}&created_at=gte.${monthStart}&select=id`,
+      {
+        headers: {
+          'Authorization': `Bearer ${SUPABASE_KEY}`,
+          'apikey':        SUPABASE_KEY
+        }
+      }
+    );
+
+    const usageData = await usageResponse.json();
+    const userPlan  = session?.user?.user_metadata?.plan || 'free';
+
+    if (userPlan === 'free' && usageData.length >= 1) {
+      btn.textContent = 'Create project and get review link';
+      btn.disabled    = false;
+      showUpgradePrompt();
+      return;
+    }
+  }
+
+  btn.textContent = 'Uploading...';
 
   try {
 
@@ -147,9 +178,7 @@ document.getElementById('submit-btn').addEventListener('click', async function()
       }
     );
 
-    if (!uploadResponse.ok) {
-      throw new Error('File upload failed');
-    }
+    if (!uploadResponse.ok) throw new Error('File upload failed');
 
     // Step 2 — Build the public file URL
     const fileURL = `${SUPABASE_URL}/storage/v1/object/public/project-files/${fileNameUniq}`;
@@ -175,16 +204,13 @@ document.getElementById('submit-btn').addEventListener('click', async function()
       }
     );
 
-    if (!projectResponse.ok) {
-      throw new Error('Project save failed');
-    }
+    if (!projectResponse.ok) throw new Error('Project save failed');
 
     const projectData = await projectResponse.json();
     const projectId   = projectData[0].id;
 
     // Step 4 — Show the shareable review link
-    const reviewLink = `${window.location.origin}/review.html?project=${projectId}`;
-
+    const reviewLink     = `${window.location.origin}/review.html?project=${projectId}`;
     const submitArea     = btn.parentNode;
     submitArea.innerHTML = `
       <div class="success-box">
@@ -215,3 +241,21 @@ document.getElementById('submit-btn').addEventListener('click', async function()
   }
 
 });
+
+
+// ============================================================
+// UPGRADE PROMPT
+// Shows when free user hits the limit
+// ============================================================
+
+function showUpgradePrompt() {
+  const submitArea = document.getElementById('submit-btn').parentNode;
+  submitArea.innerHTML = `
+    <div class="upgrade-box">
+      <p class="upgrade-title">You've used your free project this month</p>
+      <p class="upgrade-text">Free accounts get 1 project per month. Upgrade to Pro for unlimited projects, unlimited feedback rounds, and no Spanda branding.</p>
+      <a href="pricing.html" class="btn-primary btn-full">See upgrade options</a>
+      <p class="upgrade-reset">Your free slot resets on the 1st of next month.</p>
+    </div>
+  `;
+}
