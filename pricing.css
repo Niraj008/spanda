@@ -1,0 +1,317 @@
+/* ============================================================
+   PRICING HERO
+   ============================================================ */
+
+.pricing-hero {
+  text-align: center;
+  padding: 4rem 2rem 2rem;
+}
+
+.pricing-title {
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: #1a1a1a;
+  margin-bottom: 0.75rem;
+}
+
+.pricing-subtitle {
+  font-size: 17px;
+  color: #666;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.currency-toggle {
+  display: inline-flex;
+  background: #f0f0ee;
+  border-radius: 8px;
+  padding: 4px;
+  gap: 4px;
+}
+
+.toggle-btn {
+  padding: 8px 20px;
+  font-size: 13px;
+  font-weight: 500;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: #777;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.15s;
+}
+
+.toggle-btn.active {
+  background: #ffffff;
+  color: #1a1a1a;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+
+/* ============================================================
+   PLANS GRID
+   ============================================================ */
+
+.plans-section {
+  padding: 3rem 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.plans-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  align-items: start;
+}
+
+.plan-card {
+  background: #ffffff;
+  border: 1px solid #e8e8e8;
+  border-radius: 16px;
+  padding: 2rem;
+  position: relative;
+}
+
+.plan-card-featured {
+  border-color: #1a1a1a;
+  border-width: 2px;
+}
+
+.plan-badge {
+  display: inline-block;
+  background: #1a1a1a;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 20px;
+  margin-bottom: 1.25rem;
+}
+
+.plan-header {
+  margin-bottom: 1.5rem;
+}
+
+.plan-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.75rem;
+}
+
+.plan-price-block {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin-bottom: 0.25rem;
+}
+
+.plan-price {
+  font-size: 42px;
+  font-weight: 700;
+  color: #1a1a1a;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.plan-period {
+  font-size: 14px;
+  color: #999;
+}
+
+.plan-price-note {
+  font-size: 12px;
+  color: #4caf50;
+  font-weight: 500;
+  margin-bottom: 0.75rem;
+}
+
+.plan-desc {
+  font-size: 14px;
+  color: #777;
+  line-height: 1.6;
+}
+
+
+/* ============================================================
+   PLAN FEATURES
+   ============================================================ */
+
+.plan-features {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 1.5rem;
+  border-top: 1px solid #f0f0ee;
+  padding-top: 1.25rem;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: #333;
+  padding: 6px 0;
+}
+
+.feature-missing {
+  color: #bbb;
+}
+
+.feature-check {
+  color: #4caf50;
+  font-weight: 700;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+.feature-cross {
+  color: #ddd;
+  font-weight: 700;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+
+/* ============================================================
+   PLAN BUTTONS
+   ============================================================ */
+
+.btn-plan-primary {
+  display: block;
+  text-align: center;
+  background: #1a1a1a;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-bottom: 0.75rem;
+}
+
+.btn-plan-primary:hover {
+  background: #333;
+}
+
+.btn-plan-secondary {
+  display: block;
+  text-align: center;
+  background: #ffffff;
+  color: #1a1a1a;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 12px 20px;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  cursor: pointer;
+}
+
+.btn-plan-secondary:hover {
+  border-color: #999;
+}
+
+.plan-spots {
+  font-size: 12px;
+  color: #e53935;
+  text-align: center;
+  font-weight: 500;
+}
+
+
+/* ============================================================
+   FAQ
+   ============================================================ */
+
+.faq-section {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+}
+
+.faq-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 2rem;
+  letter-spacing: -0.02em;
+}
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.faq-item {
+  border-bottom: 1px solid #f0f0ee;
+}
+
+.faq-question {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 0;
+  font-size: 15px;
+  font-weight: 500;
+  color: #1a1a1a;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  gap: 1rem;
+}
+
+.faq-question:hover {
+  color: #555;
+}
+
+.faq-icon {
+  font-size: 20px;
+  color: #bbb;
+  flex-shrink: 0;
+  transition: transform 0.2s;
+}
+
+.faq-answer {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.7;
+  padding-bottom: 1.25rem;
+}
+
+
+/* ============================================================
+   BOTTOM CTA
+   ============================================================ */
+
+.pricing-cta {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: #f7f7f5;
+  border-top: 1px solid #e8e8e8;
+}
+
+.pricing-cta-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.02em;
+}
+
+.pricing-cta-subtitle {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
