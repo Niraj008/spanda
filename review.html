@@ -78,13 +78,11 @@
       <div class="feedback-state" id="state-question" style="display:none;">
         <p class="page-label">Spanda is asking</p>
 
-        <!-- Shows the client's original feedback -->
         <div class="original-feedback-box">
           <p class="original-feedback-label">You said</p>
           <p class="original-feedback-text" id="original-feedback-display"></p>
         </div>
 
-        <!-- AI's clarifying question -->
         <div class="ai-question-box">
           <div class="ai-thinking" id="ai-thinking">
             <div class="thinking-dots">
@@ -126,6 +124,37 @@
         <button class="btn-secondary btn-full-secondary" id="start-over-btn">
           Submit another round of feedback
         </button>
+      </div>
+
+
+      <!-- =====================
+           STATE 4: Email capture
+           Shown after brief is generated
+           ===================== -->
+      <div class="feedback-state" id="state-email" style="display:none;">
+        <div class="email-capture-box">
+          <p class="email-capture-label">Powered by Spanda</p>
+          <h2 class="email-capture-title">Did you find this useful?</h2>
+          <p class="email-capture-text">Spanda turns vague feedback into clear revision briefs. If you review creative work, it was built for you too.</p>
+
+          <div class="email-capture-form">
+            <input
+              class="field-input"
+              type="email"
+              id="capture-email"
+              placeholder="your@email.com"
+            />
+            <button class="btn-primary" id="capture-submit-btn">
+              Get early access
+            </button>
+          </div>
+
+          <p class="email-capture-hint">No spam. Just early access when we launch new features.</p>
+
+          <button class="email-skip-btn" id="capture-skip-btn">
+            No thanks
+          </button>
+        </div>
       </div>
 
     </div>

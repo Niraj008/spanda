@@ -346,7 +346,6 @@ function displayRevisionBrief(tasks) {
     list.appendChild(li);
   });
 
-  // Show link to brief page
   const briefLink = `${window.location.origin}/brief.html?project=${projectId}`;
   const briefLinkBox = document.createElement('div');
   briefLinkBox.innerHTML = `
@@ -362,6 +361,16 @@ function displayRevisionBrief(tasks) {
 
   document.getElementById('brief-thinking').style.display    = 'none';
   document.getElementById('brief-output-list').style.display = 'block';
+
+  // Show email capture after 3 seconds
+  setTimeout(function() {
+    showEmailCapture();
+  }, 3000);
+}
+
+function showEmailCapture() {
+  document.getElementById('state-email').style.display = 'block';
+  document.getElementById('state-email').scrollIntoView({ behavior: 'smooth' });
 }
 
 function copyBriefLink() {
@@ -384,4 +393,51 @@ document.getElementById('start-over-btn').addEventListener('click', function() {
   selectedAnswer = '';
   clientFeedback = '';
   showState('state-feedback');
+});
+// ============================================================
+// EMAIL CAPTURE — State 4
+// ============================================================
+
+document.getElementById('capture-submit-btn').addEventListener('click', async function() {
+
+  const email = document.getElementById('capture-email').value.trim();
+
+  if (!email) {
+    alert('Please enter your email.');
+    return;
+  }
+
+  const btn       = document.getElementById('capture-submit-btn');
+  btn.textContent = 'Saving...';
+  btn.disabled    = true;
+
+  try {
+    await fetch(
+      `${SUPABASE_URL}/rest/v1/leads`,
+      {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${SUPABASE_KEY}`,
+          'apikey':        SUPABASE_KEY,
+          'Content-Type':  'application/json',
+          'Prefer':        'return=representation'
+        },
+        body: JSON.stringify({ email: email })
+      }
+    );
+  } catch (error) {
+    console.error('Lead capture error:', error);
+  }
+
+  document.getElementById('email-capture-box') ;
+  document.querySelector('.email-capture-box').innerHTML = `
+    <p class="email-capture-success">✓ You're on the list. We'll be in touch!</p>
+    <p style="font-size: 13px; color: #aaa; margin-top: 0.5rem;">
+      <a href="signup.html" style="color: #1a1a1a; font-weight: 500;">Create a free account now →</a>
+    </p>
+  `;
+});
+
+document.getElementById('capture-skip-btn').addEventListener('click', function() {
+  document.getElementById('state-email').style.display = 'none';
 });
