@@ -8,25 +8,43 @@ const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 
 // ============================================================
 // CHECK SESSION
-// If no session found, redirect to login
+// Handles both signup response shape and login response shape
+// Signup returns: { access_token, user, ... }
+// Login returns:  { access_token, user, ... } or nested
 // ============================================================
 
-const session = JSON.parse(localStorage.getItem('spanda_session'));
+const rawSession = localStorage.getItem('spanda_session');
 
-if (!session || !session.access_token) {
+if (!rawSession) {
   window.location.href = 'login.html';
 }
 
-const accessToken = session.access_token;
-const user        = session.user;
+const session = JSON.parse(rawSession);
+
+// Handle both possible response shapes from Supabase
+const accessToken = session?.access_token
+                 || session?.session?.access_token
+                 || null;
+
+const user        = session?.user
+                 || session?.session?.user
+                 || null;
+
+if (!accessToken || !user) {
+  localStorage.removeItem('spanda_session');
+  window.location.href = 'login.html';
+}
 
 
 // ============================================================
 // SHOW USER INFO IN HEADER
 // ============================================================
 
-const userName = user?.user_metadata?.full_name || user?.email || 'Artist';
-document.getElementById('nav-user').textContent     = userName;
+const userName = user?.user_metadata?.full_name
+              || user?.email
+              || 'Artist';
+
+document.getElementById('nav-user').textContent      = userName;
 document.getElementById('welcome-message').textContent = `Welcome back, ${userName.split(' ')[0]}`;
 
 
@@ -51,7 +69,6 @@ document.getElementById('logout-btn').addEventListener('click', async function()
 
 // ============================================================
 // LOAD PROJECTS
-// Only loads projects belonging to the logged in user
 // ============================================================
 
 async function loadProjects() {
@@ -98,7 +115,6 @@ function renderProjects(projects) {
 
   projects.forEach(function(project) {
 
-    // Determine status
     let status      = 'Awaiting review';
     let statusClass = 'status-pending';
 
@@ -110,7 +126,6 @@ function renderProjects(projects) {
       statusClass = 'status-reviewed';
     }
 
-    // Format date
     const date = new Date(project.created_at).toLocaleDateString('en-US', {
       month: 'short',
       day:   'numeric',
