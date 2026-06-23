@@ -1,36 +1,91 @@
 // ============================================================
-// SPANDA REVIEW PAGE
-// This file controls the 3-state feedback flow:
-// State 1 → Client writes feedback
-// State 2 → Spanda asks a clarifying question (AI)
-// State 3 → Spanda generates revision brief (AI)
+// SUPABASE + CLAUDE SETUP
 // ============================================================
 
+const SUPABASE_URL = 'https://ryflnqxlahjjuofxjjor.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ5ZmxucXhsYWhqanVvZnhqam9yIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIxMTU4NDcsImV4cCI6MjA5NzY5MTg0N30._vb7V1PA7kI-WJPrkptiRuyKRDDk5yJd5NKufWRNui4';
+const CLAUDE_KEY   = 'YOUR_CLAUDE_API_KEY_HERE';
+
 
 // ============================================================
-// LOAD PROJECT DATA
-// For now we use demo data. Later this will come from Supabase.
+// GET PROJECT ID FROM URL
+// When artist shares the link it looks like:
+// review.html?project=abc-123
+// We read that ID and use it to load the right project
 // ============================================================
 
-const project = {
-  name:   "Nike Ad — Final Cut v2",
-  client: "Nike",
-  note:   "Focus on the third act. The opening is locked."
-};
+const urlParams = new URLSearchParams(window.location.search);
+const projectId = urlParams.get('project');
 
-document.getElementById('review-project-name').textContent = project.name;
-document.getElementById('review-client-name').textContent  = project.client;
 
-if (project.note) {
-  document.getElementById('artist-note-text').textContent = project.note;
-  document.getElementById('artist-note-box').style.display = 'block';
+// ============================================================
+// LOAD PROJECT FROM SUPABASE
+// ============================================================
+
+async function loadProject() {
+
+  if (!projectId) {
+    document.getElementById('review-project-name').textContent = 'No project found';
+    return;
+  }
+
+  try {
+    const response = await fetch(
+      `${SUPABASE_URL}/rest/v1/projects?id=eq.${projectId}&select=*`,
+      {
+        headers: {
+          'Authorization': `Bearer ${SUPABASE_KEY}`,
+          'apikey':        SUPABASE_KEY
+        }
+      }
+    );
+
+    const data    = await response.json();
+    const project = data[0];
+
+    if (!project) {
+      document.getElementById('review-project-name').textContent = 'Project not found';
+      return;
+    }
+
+    // Populate page with real project data
+    document.getElementById('review-project-name').textContent = project.project_name;
+    document.getElementById('review-client-name').textContent  = project.client_name;
+
+    if (project.artist_note) {
+      document.getElementById('artist-note-text').textContent  = project.artist_note;
+      document.getElementById('artist-note-box').style.display = 'block';
+    }
+
+    // Show the uploaded file
+    if (project.file_url) {
+      const fileUrl = project.file_url;
+      const isVideo = fileUrl.match(/\.(mp4|mov|webm)$/i);
+      const isImage = fileUrl.match(/\.(jpg|jpeg|png|gif|webp)$/i);
+
+      document.getElementById('media-placeholder').style.display = 'none';
+
+      if (isImage) {
+        const img = document.getElementById('review-image');
+        img.src = fileUrl;
+        img.style.display = 'block';
+      } else if (isVideo) {
+        const vid = document.getElementById('review-video');
+        vid.src = fileUrl;
+        vid.style.display = 'block';
+      }
+    }
+
+  } catch (error) {
+    console.error('Failed to load project:', error);
+  }
 }
+
+loadProject();
 
 
 // ============================================================
 // STATE MANAGEMENT
-// Only one state is visible at a time.
-// This function hides all states then shows the one you want.
 // ============================================================
 
 function showState(stateName) {
@@ -46,8 +101,8 @@ function showState(stateName) {
 // Client submits feedback → Spanda asks a clarifying question
 // ============================================================
 
-let clientFeedback  = '';
-let selectedAnswer  = '';
+let clientFeedback = '';
+let selectedAnswer = '';
 
 document.getElementById('submit-feedback-btn').addEventListener('click', async function() {
 
@@ -59,28 +114,19 @@ document.getElementById('submit-feedback-btn').addEventListener('click', async f
   }
 
   clientFeedback = input;
-
-  // Show the client's original feedback in state 2
   document.getElementById('original-feedback-display').textContent = clientFeedback;
-
-  // Move to state 2
   showState('state-question');
-
-  // Ask the AI for a clarifying question
   await askClarifyingQuestion(clientFeedback);
 });
 
 
 // ============================================================
 // ASK AI FOR A CLARIFYING QUESTION
-// Sends the client's feedback to Claude.
-// Claude returns a question + options in JSON format.
 // ============================================================
 
 async function askClarifyingQuestion(feedback) {
 
-  // Show the thinking animation
-  document.getElementById('ai-thinking').style.display        = 'flex';
+  document.getElementById('ai-thinking').style.display         = 'flex';
   document.getElementById('ai-question-content').style.display = 'none';
 
   const prompt = `
@@ -105,13 +151,17 @@ Rules:
 `;
 
   try {
-    const response = await fetch("https://api.anthropic.com/v1/messages", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type':      'application/json',
+        'x-api-key':         CLAUDE_KEY,
+        'anthropic-version': '2023-06-01'
+      },
       body: JSON.stringify({
-        model: "claude-sonnet-4-6",
+        model:      'claude-sonnet-4-6',
         max_tokens: 1000,
-        messages: [{ role: "user", content: prompt }]
+        messages:   [{ role: 'user', content: prompt }]
       })
     });
 
@@ -122,7 +172,6 @@ Rules:
     displayClarifyingQuestion(parsed.question, parsed.options);
 
   } catch (error) {
-    // If AI fails, fall back to a sensible default
     displayClarifyingQuestion(
       "What aspect feels most off to you?",
       ["The pacing", "The visual style", "The music or sound", "The overall energy", "Something else"]
@@ -151,22 +200,17 @@ function displayClarifyingQuestion(question, options) {
     `;
 
     btn.addEventListener('click', function() {
-      // Deselect all options
       document.querySelectorAll('.ai-option').forEach(function(b) {
         b.classList.remove('selected');
       });
-      // Select this one
       btn.classList.add('selected');
       selectedAnswer = optionText;
-
-      // Show the generate brief button
       document.getElementById('submit-answer-btn').style.display = 'block';
     });
 
     container.appendChild(btn);
   });
 
-  // Hide thinking, show question
   document.getElementById('ai-thinking').style.display         = 'none';
   document.getElementById('ai-question-content').style.display = 'block';
 }
@@ -174,7 +218,7 @@ function displayClarifyingQuestion(question, options) {
 
 // ============================================================
 // STATE 2 → STATE 3
-// Client picks an answer → Spanda generates revision brief
+// Client picks answer → generate brief
 // ============================================================
 
 document.getElementById('submit-answer-btn').addEventListener('click', async function() {
@@ -185,14 +229,12 @@ document.getElementById('submit-answer-btn').addEventListener('click', async fun
 
 // ============================================================
 // GENERATE REVISION BRIEF
-// Sends feedback + answer to Claude.
-// Claude returns a list of actionable revision tasks.
 // ============================================================
 
 async function generateRevisionBrief(feedback, answer) {
 
-  document.getElementById('brief-thinking').style.display     = 'flex';
-  document.getElementById('brief-output-list').style.display  = 'none';
+  document.getElementById('brief-thinking').style.display    = 'flex';
+  document.getElementById('brief-output-list').style.display = 'none';
 
   const prompt = `
 You are Spanda, an AI assistant for a VFX and animation review platform.
@@ -221,13 +263,17 @@ Rules:
 `;
 
   try {
-    const response = await fetch("https://api.anthropic.com/v1/messages", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type':      'application/json',
+        'x-api-key':         CLAUDE_KEY,
+        'anthropic-version': '2023-06-01'
+      },
       body: JSON.stringify({
-        model: "claude-sonnet-4-6",
+        model:      'claude-sonnet-4-6',
         max_tokens: 1000,
-        messages: [{ role: "user", content: prompt }]
+        messages:   [{ role: 'user', content: prompt }]
       })
     });
 
@@ -235,14 +281,52 @@ Rules:
     const text   = data.content[0].text;
     const parsed = JSON.parse(text);
 
+    // Save to Supabase
+    await saveToSupabase(feedback, answer, parsed.tasks);
+
     displayRevisionBrief(parsed.tasks);
 
   } catch (error) {
-    displayRevisionBrief([
+    const fallbackTasks = [
       "Review the pacing of the sequence",
       "Adjust the edit rhythm to match the intended energy",
       "Check audio levels and music timing"
-    ]);
+    ];
+    await saveToSupabase(feedback, answer, fallbackTasks);
+    displayRevisionBrief(fallbackTasks);
+  }
+}
+
+
+// ============================================================
+// SAVE FEEDBACK + TASKS TO SUPABASE
+// This is what makes the brief page work —
+// the data is saved here and loaded on brief.html
+// ============================================================
+
+async function saveToSupabase(feedback, clarification, tasks) {
+
+  if (!projectId) return;
+
+  try {
+    await fetch(
+      `${SUPABASE_URL}/rest/v1/projects?id=eq.${projectId}`,
+      {
+        method: 'PATCH',
+        headers: {
+          'Authorization': `Bearer ${SUPABASE_KEY}`,
+          'apikey':        SUPABASE_KEY,
+          'Content-Type':  'application/json'
+        },
+        body: JSON.stringify({
+          feedback:      feedback,
+          clarification: clarification,
+          tasks:         tasks
+        })
+      }
+    );
+  } catch (error) {
+    console.error('Failed to save to Supabase:', error);
   }
 }
 
@@ -262,14 +346,37 @@ function displayRevisionBrief(tasks) {
     list.appendChild(li);
   });
 
+  // Show link to brief page
+  const briefLink = `${window.location.origin}/brief.html?project=${projectId}`;
+  const briefLinkBox = document.createElement('div');
+  briefLinkBox.innerHTML = `
+    <div style="margin-top: 1.5rem; padding: 1rem; background: #f7f7f5; border-radius: 8px; border: 1px solid #e8e8e8;">
+      <p style="font-size: 12px; color: #999; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600;">Share brief with artist</p>
+      <div style="display: flex; gap: 8px;">
+        <input style="flex:1; padding: 8px 12px; font-size: 13px; border: 1px solid #e0e0e0; border-radius: 8px; color: #555;" type="text" value="${briefLink}" readonly id="brief-link-input" />
+        <button onclick="copyBriefLink()" style="padding: 8px 16px; background: #1a1a1a; color: white; border: none; border-radius: 8px; font-size: 13px; cursor: pointer;" id="copy-brief-btn">Copy</button>
+      </div>
+    </div>
+  `;
+  list.parentNode.appendChild(briefLinkBox);
+
   document.getElementById('brief-thinking').style.display    = 'none';
   document.getElementById('brief-output-list').style.display = 'block';
+}
+
+function copyBriefLink() {
+  const link = document.getElementById('brief-link-input').value;
+  navigator.clipboard.writeText(link).then(function() {
+    document.getElementById('copy-brief-btn').textContent = 'Copied!';
+    setTimeout(function() {
+      document.getElementById('copy-brief-btn').textContent = 'Copy';
+    }, 2000);
+  });
 }
 
 
 // ============================================================
 // START OVER
-// Reset everything back to state 1
 // ============================================================
 
 document.getElementById('start-over-btn').addEventListener('click', function() {

@@ -1,64 +1,105 @@
 // ============================================================
-// BRIEF PAGE
-// Shows the revision brief with tickable tasks.
-// For now uses demo data — later this comes from Supabase.
+// SUPABASE SETUP
 // ============================================================
 
-
-// ============================================================
-// DEMO DATA
-// In the real product this will be passed from review.html
-// via URL parameters or loaded from the database.
-// ============================================================
-
-const briefData = {
-  projectName:        "Nike Ad — Final Cut v2",
-  clientName:         "Nike",
-  round:              1,
-  originalFeedback:   "Needs more energy. Something about the pacing isn't working.",
-  clientClarification:"The editing pace",
-  tasks: [
-    "Increase cut frequency in the action sequence — aim for cuts every 1 to 2 seconds",
-    "Tighten the transition between scene 2 and scene 3 — currently feels sluggish",
-    "Raise the music energy in the third act — switch to a higher BPM track or layer percussion",
-    "Add subtle motion blur to fast camera movements to sell the speed",
-    "Review the opening 10 seconds — the slow build may be killing momentum too early"
-  ]
-};
+const SUPABASE_URL = 'https://ryflnqxlahjjuofxjjor.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ5ZmxucXhsYWhqanVvZnhqam9yIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIxMTU4NDcsImV4cCI6MjA5NzY5MTg0N30._vb7V1PA7kI-WJPrkptiRuyKRDDk5yJd5NKufWRNui4';
 
 
 // ============================================================
-// POPULATE PAGE WITH DATA
+// GET PROJECT ID FROM URL
+// brief.html?project=abc-123
 // ============================================================
 
-document.getElementById('brief-project-name').textContent    = briefData.projectName;
-document.getElementById('brief-client-name').textContent     = briefData.clientName;
-document.getElementById('brief-round').textContent           = briefData.round;
-document.getElementById('original-feedback-text').textContent = `"${briefData.originalFeedback}"`;
-document.getElementById('client-clarification').textContent  = `"${briefData.clientClarification}"`;
+const urlParams = new URLSearchParams(window.location.search);
+const projectId = urlParams.get('project');
 
-// Set today's date
-const today = new Date();
-const dateString = today.toLocaleDateString('en-US', {
-  year:  'numeric',
-  month: 'long',
-  day:   'numeric'
-});
-document.getElementById('brief-date').textContent = dateString;
+
+// ============================================================
+// LOAD PROJECT FROM SUPABASE
+// ============================================================
+
+let taskStates = [];
+let tasksData  = [];
+
+async function loadBrief() {
+
+  if (!projectId) {
+    document.getElementById('brief-project-name').textContent = 'No project found';
+    return;
+  }
+
+  try {
+    const response = await fetch(
+      `${SUPABASE_URL}/rest/v1/projects?id=eq.${projectId}&select=*`,
+      {
+        headers: {
+          'Authorization': `Bearer ${SUPABASE_KEY}`,
+          'apikey':        SUPABASE_KEY
+        }
+      }
+    );
+
+    const data    = await response.json();
+    const project = data[0];
+
+    if (!project) {
+      document.getElementById('brief-project-name').textContent = 'Project not found';
+      return;
+    }
+
+    // Populate page with real data
+    document.getElementById('brief-project-name').textContent    = project.project_name;
+    document.getElementById('brief-client-name').textContent     = project.client_name;
+    document.getElementById('brief-round').textContent           = '1';
+    document.getElementById('original-feedback-text').textContent = project.feedback
+      ? `"${project.feedback}"`
+      : 'No feedback yet';
+    document.getElementById('client-clarification').textContent  = project.clarification
+      ? `"${project.clarification}"`
+      : 'No clarification yet';
+
+    // Set today's date
+    const today = new Date();
+    document.getElementById('brief-date').textContent = today.toLocaleDateString('en-US', {
+      year:  'numeric',
+      month: 'long',
+      day:   'numeric'
+    });
+
+    // Update share link with real project ID
+    document.getElementById('share-link').value =
+      `${window.location.origin}/brief.html?project=${projectId}`;
+
+    // Load tasks
+    if (project.tasks && project.tasks.length > 0) {
+      tasksData  = project.tasks;
+      taskStates = tasksData.map(function() { return false; });
+      renderTasks();
+      updateProgress();
+    } else {
+      document.getElementById('task-list').innerHTML =
+        '<p style="color: #aaa; font-size: 14px;">No tasks yet — the client needs to complete their review first.</p>';
+      updateProgress();
+    }
+
+  } catch (error) {
+    console.error('Failed to load brief:', error);
+    document.getElementById('brief-project-name').textContent = 'Failed to load project';
+  }
+}
 
 
 // ============================================================
 // BUILD THE TASK LIST
-// Each task is a clickable card that toggles completed state
 // ============================================================
 
-const taskList  = document.getElementById('task-list');
-const taskStates = briefData.tasks.map(function() { return false; });
+const taskList = document.getElementById('task-list');
 
 function renderTasks() {
   taskList.innerHTML = '';
 
-  briefData.tasks.forEach(function(taskText, index) {
+  tasksData.forEach(function(taskText, index) {
     const item = document.createElement('div');
     item.className = 'task-item' + (taskStates[index] ? ' completed' : '');
 
@@ -67,7 +108,6 @@ function renderTasks() {
       <p class="task-text">${taskText}</p>
     `;
 
-    // Toggle completed when clicked
     item.addEventListener('click', function() {
       taskStates[index] = !taskStates[index];
       renderTasks();
@@ -81,19 +121,17 @@ function renderTasks() {
 
 // ============================================================
 // PROGRESS BAR
-// Updates the numbers and bar as tasks are ticked off
 // ============================================================
 
 function updateProgress() {
-  const total     = briefData.tasks.length;
+  const total     = tasksData.length;
   const completed = taskStates.filter(function(s) { return s; }).length;
   const percent   = total > 0 ? Math.round((completed / total) * 100) : 0;
 
-  document.getElementById('progress-done').textContent  = completed;
-  document.getElementById('progress-total').textContent = total;
+  document.getElementById('progress-done').textContent    = completed;
+  document.getElementById('progress-total').textContent   = total;
   document.getElementById('progress-bar-fill').style.width = percent + '%';
 
-  // Show the all done message when everything is ticked
   if (completed === total && total > 0) {
     document.getElementById('all-done-box').style.display = 'block';
   } else {
@@ -132,5 +170,4 @@ document.getElementById('copy-btn').addEventListener('click', function() {
 // INITIALISE
 // ============================================================
 
-renderTasks();
-updateProgress();
+loadBrief();
