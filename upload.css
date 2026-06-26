@@ -1,373 +1,553 @@
 /* ============================================================
-   UPLOAD PAGE LAYOUT
-   ============================================================ */
+   UPLOAD PAGE
+============================================================ */
 
-.upload-main {
-  display: flex;
-  gap: 3rem;
-  padding: 3rem 2rem;
-  max-width: 1000px;
-  margin: 0 auto;
+.upload-main{
+    background:#0A0A0A;
+    min-height:100vh;
+    padding:100px 2.5rem 4rem;
 }
 
-.upload-form-side {
-  flex: 1;
-}
+.upload-container{
+    max-width:1100px;
+    margin:auto;
 
-.upload-preview-side {
-  width: 340px;
-  flex-shrink: 0;
-}
-
-
-/* ============================================================
-   PAGE HEADING
-   ============================================================ */
-
-.page-label {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: #999;
-  margin-bottom: 0.5rem;
-}
-
-.page-title {
-  font-size: 28px;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  color: #1a1a1a;
-  margin-bottom: 0.75rem;
-}
-
-.page-subtitle {
-  font-size: 15px;
-  color: #666;
-  line-height: 1.7;
-  margin-bottom: 2rem;
+    display:grid;
+    grid-template-columns:1fr 360px;
+    gap:3rem;
+    align-items:start;
 }
 
 
 /* ============================================================
-   FORM FIELDS
-   ============================================================ */
+   PAGE HEADER
+============================================================ */
 
-.field-group {
-  margin-bottom: 1.5rem;
+.upload-title{
+    font-family:'Syne',sans-serif;
+    font-size:clamp(36px,5vw,54px);
+    font-weight:700;
+    letter-spacing:-.03em;
+    line-height:1.05;
+    color:#fff;
+
+    margin-bottom:.75rem;
 }
 
-.field-label {
-  display: block;
-  font-size: 13px;
-  font-weight: 600;
-  color: #1a1a1a;
-  margin-bottom: 0.4rem;
+.upload-subtitle{
+    max-width:620px;
+
+    color:#777;
+    line-height:1.8;
+
+    margin-bottom:2.5rem;
 }
 
-.field-optional {
-  font-weight: 400;
-  color: #aaa;
+
+/* ============================================================
+   FORM
+============================================================ */
+
+.field-group{
+    margin-bottom:1.75rem;
 }
 
-.field-input {
-  width: 100%;
-  padding: 10px 14px;
-  font-size: 15px;
-  color: #1a1a1a;
-  background: #ffffff;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  outline: none;
-  font-family: inherit;
+.field-label{
+    display:block;
+
+    margin-bottom:.55rem;
+
+    font-size:11px;
+    font-weight:600;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+
+    color:#FF5C00;
 }
 
-.field-input:focus {
-  border-color: #1a1a1a;
+.field-optional{
+    color:#777;
+    text-transform:none;
+    letter-spacing:0;
+    font-weight:400;
 }
 
-.field-textarea {
-  resize: vertical;
-  line-height: 1.6;
+.field-input{
+    width:100%;
+
+    padding:12px 14px;
+
+    background:#1A1A1A;
+    color:#fff;
+
+    border:1px solid #222;
+    border-radius:8px;
+
+    font-size:15px;
+    font-family:'Inter',sans-serif;
+
+    outline:none;
+
+    transition:border-color .15s;
+}
+
+.field-input::placeholder{
+    color:#444;
+}
+
+.field-input:focus{
+    border-color:#FF5C00;
+}
+
+.field-textarea{
+    resize:vertical;
+    min-height:110px;
 }
 
 
 /* ============================================================
    DROPZONE
-   ============================================================ */
+============================================================ */
 
-.upload-dropzone {
-  border: 1.5px dashed #d0d0d0;
-  border-radius: 12px;
-  padding: 2.5rem 1.5rem;
-  text-align: center;
-  background: #fafafa;
-  cursor: pointer;
-  transition: border-color 0.2s;
+.upload-dropzone{
+
+    padding:3rem 2rem;
+
+    background:#111;
+
+    border:2px dashed #222;
+    border-radius:12px;
+
+    text-align:center;
+
+    transition:.18s;
+
+    cursor:pointer;
 }
 
-.upload-dropzone:hover {
-  border-color: #999;
+.upload-dropzone:hover{
+    border-color:#FF5C00;
 }
 
-.upload-dropzone.dragover {
-  border-color: #1a1a1a;
-  background: #f0f0f0;
+.upload-dropzone.dragover{
+    border-color:#FF5C00;
+    background:#181818;
 }
 
-.dropzone-icon {
-  font-size: 28px;
-  color: #bbb;
-  margin-bottom: 0.75rem;
+.dropzone-icon{
+
+    width:60px;
+    height:60px;
+
+    margin:0 auto 1rem;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    border-radius:50%;
+
+    background:#1A1A1A;
+
+    font-size:24px;
+    color:#FF5C00;
 }
 
-.dropzone-text {
-  font-size: 14px;
-  color: #555;
-  margin-bottom: 0.25rem;
+.dropzone-text{
+    color:#fff;
+    font-size:15px;
+    font-weight:500;
+
+    margin-bottom:.35rem;
 }
 
-.dropzone-subtext {
-  font-size: 13px;
-  color: #aaa;
-  margin-bottom: 0.75rem;
+.dropzone-subtext{
+    color:#666;
+    margin-bottom:1rem;
 }
 
-.dropzone-hint {
-  font-size: 12px;
-  color: #bbb;
-  margin-top: 0.75rem;
-}
-
-
-/* ============================================================
-   FILE SELECTED STATE
-   ============================================================ */
-
-.file-selected {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background: #f0f7f0;
-  border: 1px solid #c8e6c8;
-  border-radius: 8px;
-  padding: 10px 14px;
-  margin-top: 0.75rem;
-}
-
-.file-selected-icon {
-  color: #4caf50;
-  font-weight: 700;
-}
-
-.file-selected-name {
-  font-size: 14px;
-  color: #1a1a1a;
-  flex: 1;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.file-remove {
-  font-size: 13px;
-  color: #999;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-}
-
-.file-remove:hover {
-  color: #e53935;
+.dropzone-hint{
+    color:#444;
+    font-size:12px;
+    margin-top:1rem;
 }
 
 
 /* ============================================================
-   BUTTONS
-   ============================================================ */
+   SECONDARY BUTTON
+============================================================ */
 
-.btn-secondary {
-  display: inline-block;
-  background: #ffffff;
-  color: #1a1a1a;
-  font-size: 13px;
-  font-weight: 500;
-  padding: 8px 18px;
-  border-radius: 8px;
-  border: 1px solid #d0d0d0;
-  cursor: pointer;
+.btn-secondary{
+
+    display:inline-block;
+
+    padding:10px 18px;
+
+    border:1px solid #222;
+    border-radius:6px;
+
+    background:transparent;
+    color:#777;
+
+    font-size:13px;
+    font-weight:500;
+
+    cursor:pointer;
+
+    transition:.15s;
 }
 
-.btn-secondary:hover {
-  border-color: #999;
-}
+.btn-secondary:hover{
 
-.btn-full {
-  width: 100%;
-  padding: 14px;
-  font-size: 15px;
-  text-align: center;
-  border: none;
-}
+    color:#fff;
+    border-color:#FF5C00;
 
-.submit-hint {
-  font-size: 13px;
-  color: #aaa;
-  text-align: center;
-  margin-top: 0.75rem;
 }
 
 
 /* ============================================================
-   PREVIEW CARD
-   ============================================================ */
+   FILE SELECTED
+============================================================ */
 
-.preview-card {
-  background: #ffffff;
-  border: 1px solid #e8e8e8;
-  border-radius: 12px;
-  overflow: hidden;
-  position: sticky;
-  top: 2rem;
+.file-selected{
+
+    display:flex;
+    align-items:center;
+
+    gap:12px;
+
+    margin-top:1rem;
+
+    padding:14px;
+
+    background:#1A1A1A;
+
+    border:1px solid #222;
+    border-radius:10px;
 }
 
-.preview-empty {
-  background: #f7f7f5;
-  height: 220px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1.5rem;
+.file-selected-icon{
+
+    color:#FF5C00;
+    font-weight:700;
+
 }
 
-.preview-empty-text {
-  font-size: 13px;
-  color: #bbb;
-  text-align: center;
+.file-selected-name{
+
+    flex:1;
+
+    color:#fff;
+
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+
+    font-size:14px;
+}
+
+.file-remove{
+
+    background:none;
+    border:none;
+
+    color:#777;
+
+    cursor:pointer;
+
+    font-size:13px;
+
+    transition:.15s;
+}
+
+.file-remove:hover{
+
+    color:#FF5C00;
+
+}
+
+
+/* ============================================================
+   SUBMIT
+============================================================ */
+
+.btn-full{
+
+    width:100%;
+    margin-top:.75rem;
+
+}
+
+.submit-hint{
+
+    margin-top:1rem;
+
+    text-align:center;
+
+    color:#444;
+
+    font-size:13px;
+
+}
+
+
+/* ============================================================
+   PREVIEW
+============================================================ */
+
+.preview-card{
+
+    position:sticky;
+    top:100px;
+
+    background:#1A1A1A;
+
+    border:1px solid #222;
+    border-radius:12px;
+
+    overflow:hidden;
+
+}
+
+.preview-empty{
+
+    height:260px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:#111;
+}
+
+.preview-placeholder{
+
+    text-align:center;
+
+}
+
+.preview-icon{
+
+    width:72px;
+    height:72px;
+
+    margin:auto auto 1rem;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    border-radius:50%;
+
+    background:#1A1A1A;
+
+    color:#FF5C00;
+
+    font-size:28px;
+
+}
+
+.preview-empty-text{
+
+    color:#666;
+    line-height:1.7;
+
 }
 
 .preview-filled img,
-.preview-filled video {
-  width: 100%;
-  max-height: 220px;
-  object-fit: cover;
-  display: block;
+.preview-filled video{
+
+    width:100%;
+    max-height:260px;
+    object-fit:cover;
+    display:block;
+
 }
 
-.preview-meta {
-  padding: 1rem 1.25rem;
-  border-top: 1px solid #f0f0ee;
+.preview-meta{
+
+    padding:1.5rem;
+
+    border-top:1px solid #222;
+
 }
 
-.preview-project-name {
-  font-size: 15px;
-  font-weight: 600;
-  color: #1a1a1a;
-  margin-bottom: 2px;
+.preview-project-name{
+
+    font-size:18px;
+    font-weight:600;
+
+    color:#fff;
+
+    margin-bottom:.35rem;
 }
 
-.preview-client-name {
-  font-size: 13px;
-  color: #999;
-  margin-bottom: 6px;
+.preview-client-name{
+
+    color:#777;
+    font-size:13px;
+
+    margin-bottom:.75rem;
 }
 
-.preview-note {
-  font-size: 13px;
-  color: #666;
-  font-style: italic;
-  line-height: 1.5;
+.preview-note{
+
+    color:#999;
+
+    font-size:14px;
+    line-height:1.6;
+
 }
+
+
 /* ============================================================
-   SUCCESS STATE
-   ============================================================ */
+   SUCCESS
+============================================================ */
 
-.success-box {
-  background: #f0f7f0;
-  border: 1px solid #c8e6c8;
-  border-radius: 12px;
-  padding: 1.5rem;
+.success-box{
+
+    background:#1A1A1A;
+
+    border:1px solid #222;
+    border-radius:12px;
+
+    padding:1.5rem;
 }
 
-.success-title {
-  font-size: 16px;
-  font-weight: 600;
-  color: #1a1a1a;
-  margin-bottom: 0.25rem;
+.success-title{
+
+    font-family:'Syne',sans-serif;
+
+    font-size:22px;
+    color:#fff;
+
+    margin-bottom:.5rem;
+
 }
 
-.success-subtitle {
-  font-size: 14px;
-  color: #555;
-  margin-bottom: 1rem;
+.success-subtitle{
+
+    color:#777;
+    margin-bottom:1.25rem;
+
 }
 
-.success-hint {
-  font-size: 12px;
-  color: #aaa;
-  margin-top: 0.75rem;
+.success-hint{
+
+    margin-top:.85rem;
+
+    color:#444;
+    font-size:12px;
+
 }
 
-.share-row {
-  display: flex;
-  gap: 8px;
+.share-row{
+
+    display:flex;
+    gap:10px;
+
 }
 
-.share-input {
-  flex: 1;
-  padding: 8px 12px;
-  font-size: 13px;
-  color: #555;
-  background: #ffffff;
-  border: 1px solid #c8e6c8;
-  border-radius: 8px;
-  outline: none;
-  font-family: inherit;
+.share-input{
+
+    flex:1;
+
+    padding:10px 14px;
+
+    background:#111;
+
+    color:#fff;
+
+    border:1px solid #222;
+    border-radius:8px;
+
+    outline:none;
 }
 
-.btn-copy {
-  padding: 8px 16px;
-  font-size: 13px;
-  font-weight: 500;
-  background: #1a1a1a;
-  color: #ffffff;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
+.btn-copy{
+
+    padding:10px 18px;
+
+    background:#FF5C00;
+    color:#fff;
+
+    border:none;
+    border-radius:6px;
+
+    cursor:pointer;
 }
 
-.btn-copy:hover {
-  background: #333;
-}
+
 /* ============================================================
-   UPGRADE PROMPT
-   ============================================================ */
+   UPGRADE
+============================================================ */
 
-.upgrade-box {
-  background: #fff8f0;
-  border: 1px solid #ffe0b2;
-  border-radius: 12px;
-  padding: 1.5rem;
+.upgrade-box{
+
+    background:#1A1A1A;
+
+    border:1px solid #FF5C00;
+
+    border-radius:12px;
+
+    padding:1.5rem;
 }
 
-.upgrade-title {
-  font-size: 15px;
-  font-weight: 600;
-  color: #1a1a1a;
-  margin-bottom: 0.5rem;
+.upgrade-title{
+
+    font-family:'Syne',sans-serif;
+
+    color:#fff;
+
+    margin-bottom:.5rem;
+
 }
 
-.upgrade-text {
-  font-size: 14px;
-  color: #666;
-  line-height: 1.6;
-  margin-bottom: 1.25rem;
+.upgrade-text{
+
+    color:#777;
+
+    line-height:1.7;
+
+    margin-bottom:1.5rem;
+
 }
 
-.upgrade-reset {
-  font-size: 12px;
-  color: #aaa;
-  text-align: center;
-  margin-top: 0.75rem;
+.upgrade-reset{
+
+    margin-top:.75rem;
+
+    text-align:center;
+
+    color:#444;
+
+    font-size:12px;
+
+}
+
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+
+@media(max-width:900px){
+
+.upload-container{
+
+grid-template-columns:1fr;
+
+}
+
+.preview-card{
+
+position:static;
+
+}
+
+.upload-main{
+
+padding:90px 1.25rem 2.5rem;
+
+}
+
 }

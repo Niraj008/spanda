@@ -3,173 +3,338 @@
    ============================================================ */
 
 .dashboard-main {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 3rem 2rem;
+  min-height: 100vh;
+  background: #0A0A0A;
+  padding: 100px 2.5rem 4rem;
 }
 
-.dashboard-topbar {
+.dashboard-container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+
+.dashboard-hero {
+  margin-bottom: 4rem;
+}
+
+.dashboard-heading {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  margin-bottom: 2.5rem;
+  gap: 2rem;
+  flex-wrap: wrap;
 }
 
+.dashboard-title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(36px, 5vw, 54px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: #FFFFFF;
+  line-height: 1.05;
+  margin-bottom: .75rem;
+}
+
+.dashboard-subtitle {
+  max-width: 560px;
+  font-size: 16px;
+  line-height: 1.8;
+  color: #777777;
+}
+
+/* ============================================================
+   HEADER USER
+   ============================================================ */
+
 .nav-user {
-  font-size: 14px;
-  color: #777;
-  margin-right: 1rem;
+  font-size: 13px;
+  font-weight: 500;
+  color: #777777;
 }
 
 .btn-logout {
+  padding: 8px 16px;
+
+  background: transparent;
+  border: 1px solid #222222;
+  border-radius: 6px;
+
+  color: #777777;
+
   font-size: 13px;
-  color: #999;
-  background: none;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  padding: 7px 14px;
-  cursor: pointer;
+  font-weight: 500;
   font-family: inherit;
+
+  cursor: pointer;
+
+  transition: .15s;
 }
 
 .btn-logout:hover {
-  border-color: #999;
-  color: #1a1a1a;
+  border-color: #FF5C00;
+  color: #FFFFFF;
 }
 
+/* ============================================================
+   PROJECTS SECTION
+   ============================================================ */
+
+.projects-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.projects-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: #FFFFFF;
+  letter-spacing: -.02em;
+}
+
+.projects-count {
+  font-size: 14px;
+  color: #777777;
+}
 
 /* ============================================================
-   LOADING + EMPTY STATES
+   LOADING
    ============================================================ */
 
 .projects-loading {
-  text-align: center;
-  padding: 4rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  padding: 5rem 2rem;
+
+  background: #1A1A1A;
+  border: 1px solid #222222;
+  border-radius: 12px;
 }
 
-.loading-text {
-  font-size: 14px;
-  color: #bbb;
-}
+.loading-spinner {
+  width: 36px;
+  height: 36px;
 
-.projects-empty {
-  text-align: center;
-  padding: 4rem 2rem;
-  background: #f7f7f5;
-  border: 1px solid #e8e8e8;
-  border-radius: 16px;
-}
+  border: 3px solid #222222;
+  border-top-color: #FF5C00;
 
-.empty-icon {
-  font-size: 36px;
+  border-radius: 50%;
+
+  animation: spin .9s linear infinite;
+
   margin-bottom: 1rem;
 }
 
+.loading-text {
+  color: #777777;
+  font-size: 14px;
+}
+
+@keyframes spin {
+
+  to {
+    transform: rotate(360deg);
+  }
+
+}
+
+/* ============================================================
+   EMPTY STATE
+   ============================================================ */
+
+.projects-empty {
+  text-align: center;
+
+  padding: 5rem 3rem;
+
+  background: #1A1A1A;
+  border: 1px solid #222222;
+  border-radius: 12px;
+}
+
+.empty-icon {
+  font-size: 44px;
+  margin-bottom: 1.25rem;
+}
+
 .empty-title {
-  font-size: 20px;
+  font-family: 'Syne', sans-serif;
+  font-size: 30px;
   font-weight: 700;
-  color: #1a1a1a;
-  margin-bottom: 0.5rem;
+  color: #FFFFFF;
+  margin-bottom: .75rem;
 }
 
 .empty-text {
-  font-size: 14px;
-  color: #777;
-  margin-bottom: 1.5rem;
+  max-width: 420px;
+  margin: 0 auto 2rem;
+
+  color: #777777;
+  font-size: 15px;
+  line-height: 1.7;
 }
 
-
 /* ============================================================
-   PROJECTS GRID
+   PROJECT GRID
    ============================================================ */
 
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
 }
 
+/* ============================================================
+   PROJECT CARD
+   ============================================================ */
+
 .project-card {
-  background: #ffffff;
-  border: 1px solid #e8e8e8;
+  background: #1A1A1A;
+
+  border: 1px solid #222222;
   border-radius: 12px;
+
   padding: 1.5rem;
+
+  transition:
+    transform .18s ease,
+    border-color .18s ease;
+
   cursor: pointer;
-  transition: border-color 0.15s;
 }
 
 .project-card:hover {
-  border-color: #999;
+  border-color: #FF5C00;
+  transform: translateY(-2px);
 }
 
 .project-card-top {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 1rem;
+  gap: 1rem;
+
+  margin-bottom: 1.5rem;
 }
 
 .project-card-name {
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 600;
-  color: #1a1a1a;
-  margin-bottom: 4px;
+  color: #FFFFFF;
+  margin-bottom: .35rem;
 }
 
 .project-card-client {
   font-size: 13px;
-  color: #999;
+  color: #777777;
 }
 
+/* ============================================================
+   STATUS BADGES
+   ============================================================ */
+
 .project-status {
+  padding: 5px 10px;
+
+  border-radius: 999px;
+
   font-size: 11px;
   font-weight: 600;
-  padding: 4px 10px;
-  border-radius: 20px;
+
+  letter-spacing: .04em;
+  text-transform: uppercase;
+
   white-space: nowrap;
-  flex-shrink: 0;
 }
 
 .status-pending {
-  background: #fff8e1;
-  color: #f59e0b;
+  background: rgba(255,92,0,.12);
+  color: #FFB17A;
 }
 
 .status-reviewed {
-  background: #e8f5e9;
-  color: #4caf50;
+  background: rgba(68,192,132,.14);
+  color: #6BE39A;
 }
 
 .status-briefed {
-  background: #e3f2fd;
-  color: #2196f3;
+  background: rgba(76,156,255,.14);
+  color: #8EC2FF;
 }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
 
 .project-card-footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 1rem;
-  border-top: 1px solid #f0f0ee;
+
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+
+  border-top: 1px solid #222222;
 }
 
 .project-card-date {
   font-size: 12px;
-  color: #bbb;
+  color: #444444;
 }
 
 .project-card-links {
   display: flex;
-  gap: 8px;
+  gap: 1rem;
 }
 
 .project-link {
-  font-size: 12px;
-  color: #1a1a1a;
+  color: #FFFFFF;
+
+  font-size: 13px;
   font-weight: 500;
-  text-decoration: underline;
+
+  text-decoration: none;
+
+  transition: color .15s;
 }
 
 .project-link:hover {
-  color: #555;
+  color: #FF5C00;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 768px) {
+
+  .dashboard-main {
+    padding: 90px 1.25rem 2.5rem;
+  }
+
+  .dashboard-heading {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .projects-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+
 }

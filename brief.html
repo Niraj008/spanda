@@ -2,108 +2,324 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Revision Brief — Spanda</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="brief.css">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Revision Brief — Spanda</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="brief.css">
+
 </head>
 
 <body>
 
-  <!-- HEADER -->
-  <header class="site-header">
-    <div class="logo">Spanda</div>
-    <nav>
-      <a href="index.html" class="nav-link">Home</a>
+<header class="header">
+
+    <div class="header-logo">
+        Spanda<span>.</span>
+    </div>
+
+    <nav class="header-nav">
+
+        <a href="dashboard.html" class="nav-link">
+            Dashboard
+        </a>
+
+        <a href="upload.html" class="nav-link">
+            New Project
+        </a>
+
     </nav>
-  </header>
+
+</header>
 
 
-  <!-- PAGE BODY -->
-  <main class="brief-main">
+<main class="brief-main">
 
-    <!-- Left: Project info + progress -->
-    <div class="brief-left">
+<div class="brief-container">
 
-      <p class="page-label">Revision brief</p>
-      <h1 class="page-title" id="brief-project-name">Nike Ad — Final Cut v2</h1>
-      <p class="brief-meta">Client: <span id="brief-client-name">Nike</span></p>
-      <p class="brief-meta">Round: <span id="brief-round">1</span></p>
-      <p class="brief-meta">Generated: <span id="brief-date"></span></p>
 
-      <!-- Progress ring -->
-      <div class="progress-box">
+<!-- ===========================================================
+LEFT
+=========================================================== -->
+
+<section class="brief-left">
+
+    <p class="section-label">
+        Revision Brief
+    </p>
+
+    <h1
+        class="brief-title"
+        id="brief-project-name">
+
+        Nike Ad — Final Cut v2
+
+    </h1>
+
+    <div class="brief-meta-group">
+
+        <p class="brief-meta">
+
+            Client
+
+            <span id="brief-client-name">
+
+                Nike
+
+            </span>
+
+        </p>
+
+        <p class="brief-meta">
+
+            Round
+
+            <span id="brief-round">
+
+                1
+
+            </span>
+
+        </p>
+
+        <p class="brief-meta">
+
+            Generated
+
+            <span id="brief-date"></span>
+
+        </p>
+
+    </div>
+
+
+    <!-- Progress -->
+
+    <div class="progress-box">
+
         <div class="progress-numbers">
-          <span class="progress-done" id="progress-done">0</span>
-          <span class="progress-sep">/</span>
-          <span class="progress-total" id="progress-total">0</span>
+
+            <span
+                class="progress-done"
+                id="progress-done">
+
+                0
+
+            </span>
+
+            <span class="progress-sep">
+                /
+            </span>
+
+            <span
+                class="progress-total"
+                id="progress-total">
+
+                0
+
+            </span>
+
         </div>
-        <p class="progress-label">tasks completed</p>
+
+        <p class="progress-label">
+
+            Tasks Completed
+
+        </p>
+
         <div class="progress-bar-track">
-          <div class="progress-bar-fill" id="progress-bar-fill"></div>
+
+            <div
+                class="progress-bar-fill"
+                id="progress-bar-fill">
+            </div>
+
         </div>
-      </div>
-
-      <!-- Original feedback -->
-      <div class="original-feedback-box">
-        <p class="original-feedback-label">Client's original feedback</p>
-        <p class="original-feedback-text" id="original-feedback-text">
-          "Needs more energy. Something about the pacing isn't working."
-        </p>
-      </div>
-
-      <!-- Client's clarification -->
-      <div class="original-feedback-box">
-        <p class="original-feedback-label">Client clarified</p>
-        <p class="original-feedback-text" id="client-clarification">
-          "The editing pace"
-        </p>
-      </div>
 
     </div>
 
 
-    <!-- Right: The task list -->
-    <div class="brief-right">
 
-      <div class="tasks-header">
-        <p class="page-label">Action items</p>
-        <button class="btn-reset" id="reset-btn">Reset all</button>
-      </div>
+    <!-- Feedback -->
 
-      <!-- Tasks are injected here by JS -->
-      <div class="task-list" id="task-list"></div>
+    <div class="context-card">
 
-      <!-- All done state -->
-      <div class="all-done-box" id="all-done-box" style="display:none;">
-        <p class="all-done-icon">✓</p>
-        <h2 class="all-done-title">All done!</h2>
-        <p class="all-done-text">All revision tasks are complete. Time to share the next version with your client.</p>
-        <a href="upload.html" class="btn-primary">Upload next version</a>
-      </div>
+        <p class="context-label">
 
-      <!-- Share brief -->
-      <div class="share-box">
-        <p class="share-label">Share this brief</p>
+            Original Feedback
+
+        </p>
+
+        <p
+            class="context-text"
+            id="original-feedback-text">
+
+            "Needs more energy."
+
+        </p>
+
+    </div>
+
+
+
+    <!-- Clarification -->
+
+    <div class="context-card">
+
+        <p class="context-label">
+
+            Clarification
+
+        </p>
+
+        <p
+            class="context-text"
+            id="client-clarification">
+
+            "The pacing."
+
+        </p>
+
+    </div>
+
+</section>
+
+
+
+<!-- ===========================================================
+RIGHT
+=========================================================== -->
+
+<section class="brief-right">
+
+    <div class="tasks-header">
+
+        <div>
+
+            <p class="section-label">
+
+                Action Items
+
+            </p>
+
+            <h2 class="tasks-title">
+
+                Revision Tasks
+
+            </h2>
+
+        </div>
+
+        <button
+            class="btn-reset"
+            id="reset-btn">
+
+            Reset All
+
+        </button>
+
+    </div>
+
+
+    <div
+        class="task-list"
+        id="task-list">
+    </div>
+
+
+
+    <!-- Finished -->
+
+    <div
+        class="all-done-box"
+        id="all-done-box"
+        style="display:none;">
+
+        <div class="all-done-icon">
+
+            ✓
+
+        </div>
+
+        <h2 class="all-done-title">
+
+            Revision Complete
+
+        </h2>
+
+        <p class="all-done-text">
+
+            Every task has been completed.
+            You're ready to send the next version to your client.
+
+        </p>
+
+        <a
+            href="upload.html"
+            class="btn-primary">
+
+            Upload Next Version
+
+        </a>
+
+    </div>
+
+
+
+    <!-- Share -->
+
+    <div class="share-box">
+
+        <p class="share-label">
+
+            Share Brief
+
+        </p>
+
         <div class="share-row">
-          <input
-            class="share-input"
-            id="share-link"
-            type="text"
-            value="https://spanda.vercel.app/brief.html"
-            readonly
-          />
-          <button class="btn-copy" id="copy-btn">Copy</button>
+
+            <input
+
+                class="share-input"
+
+                id="share-link"
+
+                type="text"
+
+                value="https://spanda.vercel.app/brief.html"
+
+                readonly>
+
+            <button
+
+                class="btn-copy"
+
+                id="copy-btn">
+
+                Copy
+
+            </button>
+
         </div>
-      </div>
 
     </div>
 
-  </main>
+</section>
 
-</body>
+</div>
+
+</main>
 
 <script src="brief.js"></script>
+
+</body>
 
 </html>

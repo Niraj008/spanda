@@ -2,206 +2,194 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pricing — Spanda</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="pricing.css">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Pricing — Spanda</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="pricing.css">
+
 </head>
 
 <body>
 
-  <header class="site-header">
-    <div class="logo">Spanda</div>
-    <nav>
-      <a href="index.html" class="nav-link">Home</a>
-      <a href="login.html" class="nav-link">Log in</a>
-      <a href="signup.html" class="btn-primary">Sign up free</a>
+<header class="header">
+
+    <div class="header-logo">
+
+        Spanda<span>.</span>
+
+    </div>
+
+    <nav class="header-nav">
+
+        <a href="index.html" class="nav-link">
+            Home
+        </a>
+
+        <a href="login.html" class="nav-link">
+            Log In
+        </a>
+
+        <a href="signup.html" class="btn-primary">
+            Start Free
+        </a>
+
     </nav>
-  </header>
 
-  <main>
-
-    <!-- HERO -->
-    <section class="pricing-hero">
-      <p class="page-label">Pricing</p>
-      <h1 class="pricing-title">Simple, honest pricing</h1>
-      <p class="pricing-subtitle">Start free. Upgrade when Spanda saves you more time than it costs.</p>
-
-      <div class="currency-toggle">
-        <button class="toggle-btn active" id="btn-intl">$ USD</button>
-        <button class="toggle-btn" id="btn-india">₹ INR</button>
-      </div>
-    </section>
+</header>
 
 
-    <!-- PLANS -->
-    <section class="plans-section">
-      <div class="plans-grid">
 
-        <!-- FREE -->
-        <div class="plan-card">
-          <div class="plan-header">
-            <p class="plan-name">Free</p>
-            <div class="plan-price-block">
-              <span class="plan-price">$0</span>
-              <span class="plan-period">forever</span>
-            </div>
-            <p class="plan-desc">Good enough to feel the value. No credit card needed.</p>
-          </div>
-          <ul class="plan-features">
-            <li class="feature-item"><span class="feature-check">✓</span> 1 project per month</li>
-            <li class="feature-item"><span class="feature-check">✓</span> 1 feedback round per project</li>
-            <li class="feature-item"><span class="feature-check">✓</span> AI clarifying questions</li>
-            <li class="feature-item"><span class="feature-check">✓</span> Structured revision brief</li>
-            <li class="feature-item feature-missing"><span class="feature-cross">✕</span> Spanda branding on pages</li>
-            <li class="feature-item feature-missing"><span class="feature-cross">✕</span> Full project history</li>
-          </ul>
-          <a href="signup.html" class="btn-plan-secondary">Get started free</a>
-        </div>
+<main>
 
+<!-- ===========================================================
+HERO
+=========================================================== -->
 
-        <!-- FOUNDING MEMBER -->
-        <div class="plan-card plan-card-featured">
-          <div class="plan-badge">Limited — 50 spots</div>
-          <div class="plan-header">
-            <p class="plan-name">Founding Member</p>
-            <div class="plan-price-block">
-              <span class="plan-price intl-price">$99</span>
-              <span class="plan-price india-price" style="display:none;">₹2,499</span>
-              <span class="plan-period">per year</span>
-            </div>
-            <p class="plan-price-note intl-price">That's $8.25/month. Locked in forever.</p>
-            <p class="plan-price-note india-price" style="display:none;">That's ₹208/month. Locked in forever.</p>
-            <p class="plan-desc">For the first 50 artists who believe in what we're building.</p>
-          </div>
-          <ul class="plan-features">
-            <li class="feature-item"><span class="feature-check">✓</span> Unlimited projects</li>
-            <li class="feature-item"><span class="feature-check">✓</span> Unlimited feedback rounds</li>
-            <li class="feature-item"><span class="feature-check">✓</span> AI clarifying questions</li>
-            <li class="feature-item"><span class="feature-check">✓</span> Full revision briefs</li>
-            <li class="feature-item"><span class="feature-check">✓</span> No Spanda branding</li>
-            <li class="feature-item"><span class="feature-check">✓</span> Full project history</li>
-            <li class="feature-item"><span class="feature-check">✓</span> Founding member badge</li>
-            <li class="feature-item"><span class="feature-check">✓</span> Price locked in forever</li>
-          </ul>
-          <a href="https://spanda.lemonsqueezy.com/checkout/buy/796f72cc-9e7f-4145-a76f-9f0ba7ec4dff" class="btn-plan-primary checkout-link" target="_blank">Claim founding spot</a>
-          <p class="plan-spots" id="spots-left">47 spots remaining</p>
-        </div>
+<section class="pricing-hero">
+
+    <p class="section-label">
+        Pricing
+    </p>
+
+    <h1 class="pricing-title">
+
+        Simple pricing
+        for creative teams.
+
+    </h1>
+
+    <p class="pricing-subtitle">
+
+        Start free.
+        Upgrade only when Spanda saves more time than it costs.
+
+    </p>
 
 
-        <!-- PRO -->
-        <div class="plan-card">
-          <div class="plan-header">
-            <p class="plan-name">Pro</p>
-            <div class="plan-price-block">
-              <span class="plan-price intl-price">$19</span>
-              <span class="plan-price india-price" style="display:none;">₹499</span>
-              <span class="plan-period">per month</span>
-            </div>
-            <p class="plan-desc">For artists and studios who review work regularly.</p>
-          </div>
-          <ul class="plan-features">
-            <li class="feature-item"><span class="feature-check">✓</span> Unlimited projects</li>
-            <li class="feature-item"><span class="feature-check">✓</span> Unlimited feedback rounds</li>
-            <li class="feature-item"><span class="feature-check">✓</span> AI clarifying questions</li>
-            <li class="feature-item"><span class="feature-check">✓</span> Full revision briefs</li>
-            <li class="feature-item"><span class="feature-check">✓</span> No Spanda branding</li>
-            <li class="feature-item"><span class="feature-check">✓</span> Full project history</li>
-          </ul>
-          <a href="https://spanda.lemonsqueezy.com/checkout/buy/736500cb-b7e2-464c-9b38-de93b39f2f11" class="btn-plan-secondary checkout-link" target="_blank">Start with Pro</a>
-        </div>
+    <div class="currency-toggle">
 
-      </div>
-    </section>
+        <button
+            class="toggle-btn active"
+            id="btn-intl">
+
+            USD $
+
+        </button>
+
+        <button
+            class="toggle-btn"
+            id="btn-india">
+
+            INR ₹
+
+        </button>
+
+    </div>
+
+</section>
 
 
-    <!-- FAQ -->
-    <section class="faq-section">
-      <p class="page-label">FAQ</p>
-      <h2 class="faq-title">Common questions</h2>
 
-      <div class="faq-list">
+<!-- ===========================================================
+PLANS
+=========================================================== -->
 
-        <div class="faq-item">
-          <button class="faq-question" onclick="toggleFaq(this)">
-            What happens when I hit the free limit?
-            <span class="faq-icon">+</span>
-          </button>
-          <p class="faq-answer" style="display:none;">
-            After 1 project on the free plan you'll be prompted to upgrade. Your existing project and brief are always accessible — we never delete your work.
-          </p>
-        </div>
+<section class="plans-section">
 
-        <div class="faq-item">
-          <button class="faq-question" onclick="toggleFaq(this)">
-            What is the Founding Member price lock?
-            <span class="faq-icon">+</span>
-          </button>
-          <p class="faq-answer" style="display:none;">
-            The first 50 members who sign up at $99/year keep that price forever — even when we raise prices later. This is our way of rewarding early believers.
-          </p>
-        </div>
+<div class="plans-grid">
 
-        <div class="faq-item">
-          <button class="faq-question" onclick="toggleFaq(this)">
-            Does the client need a Spanda account?
-            <span class="faq-icon">+</span>
-          </button>
-          <p class="faq-answer" style="display:none;">
-            No. The client just opens the link you send them. No signup, no friction. They give feedback and Spanda does the rest.
-          </p>
-        </div>
+<!-- Keep your existing three pricing cards exactly as they are -->
 
-        <div class="faq-item">
-          <button class="faq-question" onclick="toggleFaq(this)">
-            What kind of files can I upload?
-            <span class="faq-icon">+</span>
-          </button>
-          <p class="faq-answer" style="display:none;">
-            Currently MP4, MOV, JPG, and PNG. Support for more formats including image sequences is coming soon.
-          </p>
-        </div>
+<!-- FREE -->
 
-        <div class="faq-item">
-          <button class="faq-question" onclick="toggleFaq(this)">
-            Can I cancel anytime?
-            <span class="faq-icon">+</span>
-          </button>
-          <p class="faq-answer" style="display:none;">
-            Yes. Cancel anytime from your account settings. No questions asked. You keep access until the end of your billing period.
-          </p>
-        </div>
+<!-- FOUNDING -->
 
-        <div class="faq-item">
-          <button class="faq-question" onclick="toggleFaq(this)">
-            Is my client's feedback private?
-            <span class="faq-icon">+</span>
-          </button>
-          <p class="faq-answer" style="display:none;">
-            Yes. Your projects are private to your account. Only people with the specific review link can access a project.
-          </p>
-        </div>
+<!-- PRO -->
 
-      </div>
-    </section>
+</div>
+
+</section>
 
 
-    <!-- BOTTOM CTA -->
-    <section class="pricing-cta">
-      <h2 class="pricing-cta-title">Still unsure? Start free.</h2>
-      <p class="pricing-cta-subtitle">Run one real project through Spanda. If it doesn't save you time, don't upgrade.</p>
-      <a href="signup.html" class="btn-primary">Get started free</a>
-    </section>
 
-  </main>
+<!-- ===========================================================
+FAQ
+=========================================================== -->
 
-  <footer class="site-footer">
-    <p>© 2025 Spanda. All rights reserved.</p>
-  </footer>
+<section class="faq-section">
 
-</body>
+    <p class="section-label">
+
+        FAQ
+
+    </p>
+
+    <h2 class="faq-title">
+
+        Questions people ask
+
+    </h2>
+
+    <div class="faq-list">
+
+        <!-- Keep every FAQ item exactly as it already is -->
+
+    </div>
+
+</section>
+
+
+
+<!-- ===========================================================
+CTA
+=========================================================== -->
+
+<section class="pricing-cta">
+
+    <h2 class="pricing-cta-title">
+
+        Ready to simplify client feedback?
+
+    </h2>
+
+    <p class="pricing-cta-subtitle">
+
+        Start with one project.
+        Experience how Spanda transforms vague feedback into clear action.
+
+    </p>
+
+    <a
+        href="signup.html"
+        class="btn-primary">
+
+        Get Started Free
+
+    </a>
+
+</section>
+
+</main>
+
+
+
+<footer class="site-footer">
+
+    © 2025 Spanda
+
+</footer>
 
 <script src="pricing.js"></script>
+
+</body>
 
 </html>

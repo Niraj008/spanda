@@ -1,69 +1,204 @@
 /* ============================================================
-   AUTH PAGES
+   AUTH PAGE
    ============================================================ */
 
 .auth-main {
+  min-height: 100vh;
+  padding: 110px 2rem 3rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: calc(100vh - 65px);
-  padding: 2rem;
-  background: #f7f7f5;
+  background: #0A0A0A;
 }
 
 .auth-card {
-  background: #ffffff;
-  border: 1px solid #e8e8e8;
-  border-radius: 16px;
-  padding: 2.5rem;
   width: 100%;
-  max-width: 420px;
+  max-width: 460px;
+  background: #1A1A1A;
+  border: 1px solid #222222;
+  border-radius: 12px;
+  padding: 2.75rem;
 }
 
 .auth-title {
-  font-size: 24px;
+  font-family: 'Syne', sans-serif;
+  font-size: 36px;
   font-weight: 700;
-  letter-spacing: -0.02em;
-  color: #1a1a1a;
-  margin-bottom: 0.5rem;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: #FFFFFF;
+  margin-bottom: 0.75rem;
 }
 
 .auth-subtitle {
+  font-family: 'Inter', sans-serif;
   font-size: 15px;
-  color: #777;
+  color: #777777;
+  line-height: 1.7;
   margin-bottom: 2rem;
-  line-height: 1.6;
 }
 
-.auth-error {
-  font-size: 13px;
-  color: #e53935;
-  background: #fff5f5;
-  border: 1px solid #ffcdd2;
-  border-radius: 8px;
-  padding: 10px 14px;
-  margin-top: 1rem;
+
+/* ============================================================
+   FORM
+   ============================================================ */
+
+.auth-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
 }
 
-.auth-switch {
-  font-size: 13px;
-  color: #999;
-  text-align: center;
-  margin-top: 1.5rem;
-}
+.auth-card label {
+  display: block;
+  margin-bottom: 0.55rem;
 
-.auth-link {
-  color: #1a1a1a;
+  font-size: 11px;
   font-weight: 600;
-  text-decoration: underline;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+
+  color: #FF5C00;
 }
+
+.auth-card input {
+  width: 100%;
+  padding: 12px 14px;
+
+  background: #111111;
+  color: #FFFFFF;
+
+  border: 1px solid #222222;
+  border-radius: 8px;
+
+  font-size: 15px;
+  font-family: 'Inter', sans-serif;
+
+  outline: none;
+  transition: border-color .15s ease,
+              background .15s ease;
+}
+
+.auth-card input::placeholder {
+  color: #444444;
+}
+
+.auth-card input:focus {
+  border-color: #FF5C00;
+}
+
+
+/* ============================================================
+   BUTTON
+   ============================================================ */
 
 .btn-full {
   width: 100%;
+  margin-top: .5rem;
+
   padding: 14px;
-  font-size: 15px;
-  text-align: center;
+
   border: none;
-  margin-top: 0.5rem;
+  border-radius: 6px;
+
+  background: #FF5C00;
+  color: #FFFFFF;
+
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+
   cursor: pointer;
+  transition: opacity .15s ease;
+}
+
+.btn-full:hover {
+  opacity: .88;
+}
+
+.btn-full:disabled {
+  opacity: .55;
+  cursor: not-allowed;
+}
+
+
+/* ============================================================
+   ERROR
+   ============================================================ */
+
+.auth-error {
+  display: none;
+
+  margin-top: 1.25rem;
+  padding: 12px 14px;
+
+  border-radius: 8px;
+  border: 1px solid rgba(255,92,0,.25);
+
+  background: rgba(255,92,0,.08);
+
+  color: #FF8C55;
+
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+
+/* ============================================================
+   FOOTER LINK
+   ============================================================ */
+
+.auth-switch {
+  margin-top: 2rem;
+
+  text-align: center;
+
+  font-size: 14px;
+  color: #777777;
+}
+
+.auth-link {
+  color: #FFFFFF;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color .15s ease;
+}
+
+.auth-link:hover {
+  color: #FF5C00;
+}
+
+
+/* ============================================================
+   SMALL TEXT
+   ============================================================ */
+
+.auth-note {
+  margin-top: 1rem;
+
+  text-align: center;
+
+  font-size: 12px;
+  color: #444444;
+}
+
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 600px) {
+
+  .auth-main {
+    padding: 100px 1.25rem 2rem;
+  }
+
+  .auth-card {
+    padding: 2rem 1.5rem;
+  }
+
+  .auth-title {
+    font-size: 30px;
+  }
+
 }

@@ -4,128 +4,288 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Upload Work — Spanda</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="upload.css">
+
 </head>
 
 <body>
 
-  <!-- HEADER -->
-  <header class="site-header">
-    <div class="logo">Spanda</div>
-    <nav>
-      <a href="index.html" class="nav-link">Home</a>
-    </nav>
-  </header>
+    <!-- HEADER -->
 
+    <header class="header">
 
-  <!-- PAGE BODY -->
-  <main class="upload-main">
-
-    <!-- Left: Form -->
-    <div class="upload-form-side">
-
-      <p class="page-label">New project</p>
-      <h1 class="page-title">Upload your work</h1>
-      <p class="page-subtitle">Share your work with a client for review. They'll give feedback and Spanda will turn it into a revision brief.</p>
-
-      <!-- Project Name -->
-      <div class="field-group">
-        <label class="field-label" for="project-name">Project name</label>
-        <input
-          class="field-input"
-          type="text"
-          id="project-name"
-          placeholder="e.g. Nike Ad — Final Cut v2"
-        />
-      </div>
-
-      <!-- Client Name -->
-      <div class="field-group">
-        <label class="field-label" for="client-name">Client name</label>
-        <input
-          class="field-input"
-          type="text"
-          id="client-name"
-          placeholder="e.g. Nike"
-        />
-      </div>
-
-      <!-- Note to client -->
-      <div class="field-group">
-        <label class="field-label" for="artist-note">Note to client <span class="field-optional">(optional)</span></label>
-        <textarea
-          class="field-input field-textarea"
-          id="artist-note"
-          placeholder="e.g. Focus on the third act. The opening is locked."
-          rows="3"
-        ></textarea>
-      </div>
-
-      <!-- File Upload -->
-      <div class="field-group">
-        <label class="field-label">Upload file</label>
-        <div class="upload-dropzone" id="dropzone">
-          <div class="dropzone-icon">↑</div>
-          <p class="dropzone-text">Drag and drop your file here</p>
-          <p class="dropzone-subtext">or</p>
-          <label for="file-input" class="btn-secondary">Browse files</label>
-          <input type="file" id="file-input" accept="video/*,image/*" style="display: none;" />
-          <p class="dropzone-hint">Supports MP4, MOV, JPG, PNG</p>
+        <div class="header-logo">
+            Spanda<span>.</span>
         </div>
 
-        <!-- This shows after a file is selected -->
-        <div class="file-selected" id="file-selected" style="display: none;">
-          <span class="file-selected-icon">✓</span>
-          <span class="file-selected-name" id="file-name"></span>
-          <button class="file-remove" id="file-remove">Remove</button>
+        <nav class="header-nav">
+            <a href="dashboard.html" class="nav-link">Dashboard</a>
+            <a href="pricing.html" class="nav-link">Pricing</a>
+        </nav>
+
+    </header>
+
+
+    <!-- PAGE -->
+
+    <main class="upload-main">
+
+        <div class="upload-container">
+
+            <!-- LEFT -->
+
+            <section class="upload-form-side">
+
+                <p class="section-label">
+                    New Project
+                </p>
+
+                <h1 class="upload-title">
+                    Upload your work
+                </h1>
+
+                <p class="upload-subtitle">
+                    Share a render, animation or video with your client.
+                    Spanda will collect feedback and convert it into
+                    structured revision tasks.
+                </p>
+
+
+                <!-- Project -->
+
+                <div class="field-group">
+
+                    <label class="field-label" for="project-name">
+                        Project Name
+                    </label>
+
+                    <input
+                        class="field-input"
+                        id="project-name"
+                        type="text"
+                        placeholder="Nike Ad — Final Cut v2">
+
+                </div>
+
+
+                <!-- Client -->
+
+                <div class="field-group">
+
+                    <label class="field-label" for="client-name">
+                        Client Name
+                    </label>
+
+                    <input
+                        class="field-input"
+                        id="client-name"
+                        type="text"
+                        placeholder="Nike">
+
+                </div>
+
+
+                <!-- Note -->
+
+                <div class="field-group">
+
+                    <label class="field-label" for="artist-note">
+                        Artist Note
+                        <span class="field-optional">(optional)</span>
+                    </label>
+
+                    <textarea
+                        class="field-input field-textarea"
+                        id="artist-note"
+                        rows="4"
+                        placeholder="Focus on pacing in the final act..."></textarea>
+
+                </div>
+
+
+                <!-- Upload -->
+
+                <div class="field-group">
+
+                    <label class="field-label">
+                        Upload File
+                    </label>
+
+                    <div
+                        class="upload-dropzone"
+                        id="dropzone">
+
+                        <div class="dropzone-icon">
+                            ↑
+                        </div>
+
+                        <p class="dropzone-text">
+                            Drag & drop your file
+                        </p>
+
+                        <p class="dropzone-subtext">
+                            or
+                        </p>
+
+                        <label
+                            for="file-input"
+                            class="btn-secondary">
+
+                            Browse Files
+
+                        </label>
+
+                        <input
+                            id="file-input"
+                            type="file"
+                            accept="video/*,image/*"
+                            style="display:none;">
+
+                        <p class="dropzone-hint">
+                            MP4 • MOV • JPG • PNG
+                        </p>
+
+                    </div>
+
+
+                    <!-- Selected -->
+
+                    <div
+                        class="file-selected"
+                        id="file-selected"
+                        style="display:none;">
+
+                        <span class="file-selected-icon">
+                            ✓
+                        </span>
+
+                        <span
+                            class="file-selected-name"
+                            id="file-name">
+                        </span>
+
+                        <button
+                            class="file-remove"
+                            id="file-remove">
+
+                            Remove
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    class="btn-primary btn-full"
+                    id="submit-btn">
+
+                    Create Project & Generate Review Link
+
+                </button>
+
+                <p class="submit-hint">
+                    A secure review link will be generated for your client.
+                </p>
+
+            </section>
+
+
+
+            <!-- RIGHT -->
+
+            <aside class="upload-preview-side">
+
+                <p class="section-label">
+                    Live Preview
+                </p>
+
+                <div class="preview-card">
+
+                    <div
+                        class="preview-empty"
+                        id="preview-empty">
+
+                        <div class="preview-placeholder">
+
+                            <div class="preview-icon">
+                                ▶
+                            </div>
+
+                            <p class="preview-empty-text">
+                                Your uploaded file
+                                will appear here.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="preview-filled"
+                        id="preview-filled"
+                        style="display:none;">
+
+                        <img
+                            id="preview-image"
+                            src=""
+                            alt="Preview"
+                            style="display:none;">
+
+                        <video
+                            id="preview-video"
+                            controls
+                            style="display:none;">
+                        </video>
+
+                    </div>
+
+
+                    <div class="preview-meta">
+
+                        <p
+                            class="preview-project-name"
+                            id="preview-project-name">
+
+                            Project Name
+
+                        </p>
+
+                        <p
+                            class="preview-client-name"
+                            id="preview-client-name">
+
+                            Client Name
+
+                        </p>
+
+                        <p
+                            class="preview-note"
+                            id="preview-note">
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </aside>
+
         </div>
 
-      </div>
+    </main>
 
-      <!-- Submit -->
-      <button class="btn-primary btn-full" id="submit-btn">
-        Create project and get review link
-      </button>
-
-      <p class="submit-hint">A shareable link will be generated for your client.</p>
-
-    </div>
-
-
-    <!-- Right: Preview -->
-    <div class="upload-preview-side">
-
-      <p class="page-label">Preview</p>
-
-      <div class="preview-card">
-
-        <div class="preview-empty" id="preview-empty">
-          <p class="preview-empty-text">Your file preview will appear here</p>
-        </div>
-
-        <div class="preview-filled" id="preview-filled" style="display: none;">
-          <img id="preview-image" src="" alt="Preview" style="display: none;" />
-          <video id="preview-video" controls style="display: none;"></video>
-        </div>
-
-        <div class="preview-meta">
-          <p class="preview-project-name" id="preview-project-name">Project name</p>
-          <p class="preview-client-name" id="preview-client-name">Client name</p>
-          <p class="preview-note" id="preview-note"></p>
-        </div>
-
-      </div>
-
-    </div>
-
-  </main>
-
+<script src="upload.js"></script>
 
 </body>
-
-<!-- JS goes here — handles file selection and preview -->
-<script src="upload.js"></script>
 
 </html>

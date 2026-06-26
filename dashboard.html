@@ -4,57 +4,144 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Dashboard — Spanda</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="dashboard.css">
 </head>
 
 <body>
 
-  <header class="site-header">
-    <div class="logo">Spanda</div>
-    <nav>
+  <!-- HEADER -->
+  <header class="header">
+
+    <div class="header-logo">
+      Spanda<span>.</span>
+    </div>
+
+    <nav class="header-nav">
       <span class="nav-user" id="nav-user"></span>
       <button class="btn-logout" id="logout-btn">Log out</button>
     </nav>
+
   </header>
 
+  <!-- MAIN -->
   <main class="dashboard-main">
 
-    <!-- Top bar -->
-    <div class="dashboard-topbar">
-      <div>
-        <p class="page-label">Dashboard</p>
-        <h1 class="page-title" id="welcome-message">Welcome back</h1>
-      </div>
-      <a href="upload.html" class="btn-primary">+ New project</a>
-    </div>
+    <div class="dashboard-container">
 
-    <!-- Projects list -->
-    <div class="projects-section">
+      <!-- Heading -->
+      <section class="dashboard-hero">
 
-      <!-- Loading state -->
-      <div class="projects-loading" id="projects-loading">
-        <p class="loading-text">Loading your projects...</p>
-      </div>
+        <p class="section-label">
+          Dashboard
+        </p>
 
-      <!-- Empty state -->
-      <div class="projects-empty" id="projects-empty" style="display:none;">
-        <p class="empty-icon">📁</p>
-        <h2 class="empty-title">No projects yet</h2>
-        <p class="empty-text">Upload your first piece of work to get started.</p>
-        <a href="upload.html" class="btn-primary">Upload work</a>
-      </div>
+        <div class="dashboard-heading">
 
-      <!-- Projects grid -->
-      <div class="projects-grid" id="projects-grid" style="display:none;"></div>
+          <div>
+
+            <h1
+              class="dashboard-title"
+              id="welcome-message">
+              Welcome back
+            </h1>
+
+            <p class="dashboard-subtitle">
+              Manage projects, collect client feedback and generate structured revision briefs.
+            </p>
+
+          </div>
+
+          <a
+            href="upload.html"
+            class="btn-primary">
+            + New Project
+          </a>
+
+        </div>
+
+      </section>
+
+      <!-- Projects -->
+
+      <section class="projects-section">
+
+        <div class="projects-header">
+
+          <h2 class="projects-title">
+            Your Projects
+          </h2>
+
+          <p class="projects-count">
+            All projects in one place
+          </p>
+
+        </div>
+
+        <!-- Loading -->
+
+        <div
+          class="projects-loading"
+          id="projects-loading">
+
+          <div class="loading-spinner"></div>
+
+          <p class="loading-text">
+            Loading your projects...
+          </p>
+
+        </div>
+
+        <!-- Empty -->
+
+        <div
+          class="projects-empty"
+          id="projects-empty"
+          style="display:none;">
+
+          <div class="empty-icon">
+            📁
+          </div>
+
+          <h2 class="empty-title">
+            No projects yet
+          </h2>
+
+          <p class="empty-text">
+            Upload your first animation, render or video to begin collecting structured client feedback.
+          </p>
+
+          <a
+            href="upload.html"
+            class="btn-primary">
+            Upload your first project
+          </a>
+
+        </div>
+
+        <!-- Grid -->
+
+        <div
+          class="projects-grid"
+          id="projects-grid"
+          style="display:none;">
+        </div>
+
+      </section>
 
     </div>
 
   </main>
 
-</body>
+  <script src="dashboard.js"></script>
 
-<script src="dashboard.js"></script>
+</body>
 
 </html>
