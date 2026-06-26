@@ -4,115 +4,968 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Spanda — AI-powered review platform</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Spanda — Stop guessing what your client means</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+
+    /* ── RESET ─────────────────────────────────────────── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    /* ── TOKENS ────────────────────────────────────────── */
+    :root {
+      --bg:        #0A0A0A;
+      --surface:   #111111;
+      --elevated:  #1A1A1A;
+      --border:    #222222;
+      --accent:    #FF5C00;
+      --accent-dim:#FF5C0022;
+      --text:      #FFFFFF;
+      --muted:     #777777;
+      --subtle:    #444444;
+    }
+
+    /* ── BASE ──────────────────────────────────────────── */
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ── HEADER ────────────────────────────────────────── */
+    .header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 2.5rem;
+      background: rgba(10,10,10,0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-logo {
+      font-family: 'Syne', sans-serif;
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--text);
+    }
+
+    .header-logo span { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .nav-link {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+      transition: color 0.15s;
+    }
+
+    .nav-link:hover { color: var(--text); }
+
+    .nav-cta {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--bg);
+      background: var(--text);
+      padding: 8px 18px;
+      border-radius: 6px;
+      transition: opacity 0.15s;
+    }
+
+    .nav-cta:hover { opacity: 0.85; }
+
+    /* ── HERO ──────────────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 8rem 2.5rem 5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 2rem;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 1.5px;
+      background: var(--accent);
+    }
+
+    .hero-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(44px, 7vw, 88px);
+      font-weight: 800;
+      line-height: 1.0;
+      letter-spacing: -0.04em;
+      color: var(--text);
+      margin-bottom: 1.75rem;
+      max-width: 800px;
+    }
+
+    .hero-title em {
+      font-style: normal;
+      color: var(--accent);
+    }
+
+    .hero-sub {
+      font-size: 18px;
+      font-weight: 400;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 520px;
+      margin-bottom: 3rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 13px 28px;
+      border-radius: 6px;
+      transition: opacity 0.15s;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .btn-primary:hover { opacity: 0.88; }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      padding: 13px 0;
+      transition: color 0.15s;
+    }
+
+    .btn-ghost:hover { color: var(--text); }
+
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 60px 60px;
+      opacity: 0.25;
+      pointer-events: none;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 0%, black 40%, transparent 100%);
+      -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 0%, black 40%, transparent 100%);
+    }
+
+    /* ── PAIN SECTION ──────────────────────────────────── */
+    .pain {
+      padding: 5rem 2.5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      border-top: 1px solid var(--border);
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+    }
+
+    .pain-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(28px, 4vw, 48px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      max-width: 640px;
+    }
+
+    .pain-body {
+      font-size: 16px;
+      color: var(--muted);
+      line-height: 1.8;
+      max-width: 560px;
+      margin-bottom: 3rem;
+    }
+
+    .pain-quotes {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .pain-quote {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.25rem 1.5rem;
+      font-size: 15px;
+      color: var(--muted);
+      font-style: italic;
+      line-height: 1.5;
+      position: relative;
+    }
+
+    .pain-quote::before {
+      content: '"';
+      font-family: 'Syne', sans-serif;
+      font-size: 48px;
+      color: var(--border);
+      position: absolute;
+      top: -8px;
+      left: 14px;
+      line-height: 1;
+    }
+
+    /* ── DEMO SECTION ──────────────────────────────────── */
+    .demo {
+      padding: 5rem 2.5rem;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    .demo-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .demo-header {
+      margin-bottom: 3rem;
+    }
+
+    .demo-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(28px, 4vw, 48px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      line-height: 1.1;
+      margin-bottom: 0.75rem;
+    }
+
+    .demo-sub {
+      font-size: 16px;
+      color: var(--muted);
+    }
+
+    .demo-flow {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr auto 1fr;
+      gap: 0;
+      align-items: start;
+    }
+
+    .demo-card {
+      background: var(--elevated);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+
+    .demo-card-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--subtle);
+      margin-bottom: 1rem;
+    }
+
+    .demo-arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 1rem;
+      padding-top: 3.5rem;
+      color: var(--subtle);
+      font-size: 20px;
+    }
+
+    .client-bubble {
+      background: var(--border);
+      border-radius: 12px 12px 12px 3px;
+      padding: 12px 16px;
+      font-size: 15px;
+      color: var(--text);
+      font-style: italic;
+      margin-bottom: 0.75rem;
+      line-height: 1.5;
+    }
+
+    .client-meta {
+      font-size: 12px;
+      color: var(--subtle);
+    }
+
+    .spanda-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .spanda-badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .spanda-question {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.75rem;
+    }
+
+    .spanda-options {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .spanda-option {
+      background: var(--border);
+      border-radius: 6px;
+      padding: 7px 12px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .spanda-option.selected {
+      background: var(--accent-dim);
+      border: 1px solid var(--accent);
+      color: var(--accent);
+    }
+
+    .brief-tasks {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .brief-task {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 9px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+      color: var(--text);
+      line-height: 1.4;
+    }
+
+    .brief-task:last-child { border-bottom: none; }
+
+    .brief-task-arrow {
+      color: var(--accent);
+      flex-shrink: 0;
+      font-size: 12px;
+      margin-top: 1px;
+      font-weight: 700;
+    }
+
+    /* ── HOW IT WORKS ──────────────────────────────────── */
+    .how {
+      padding: 5rem 2.5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .how-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(28px, 4vw, 48px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      line-height: 1.1;
+      margin-bottom: 3rem;
+    }
+
+    .how-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+
+    .how-step {
+      padding-top: 1.5rem;
+      border-top: 2px solid var(--border);
+    }
+
+    .how-step.active { border-top-color: var(--accent); }
+
+    .how-step-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--subtle);
+      letter-spacing: 0.1em;
+      margin-bottom: 0.75rem;
+    }
+
+    .how-step.active .how-step-num { color: var(--accent); }
+
+    .how-step-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    .how-step-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ── PRICING PREVIEW ───────────────────────────────── */
+    .pricing {
+      padding: 5rem 2.5rem;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .pricing-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .pricing-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 2.5rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .pricing-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(28px, 4vw, 48px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      line-height: 1.1;
+    }
+
+    .pricing-link {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+      transition: color 0.15s;
+    }
+
+    .pricing-link:hover { color: var(--text); }
+
+    .pricing-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+
+    .plan-card {
+      background: var(--elevated);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .plan-card.featured {
+      border-color: var(--accent);
+      background: #111108;
+    }
+
+    .plan-badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      border-radius: 20px;
+      padding: 3px 10px;
+      margin-bottom: 1.25rem;
+      width: fit-content;
+    }
+
+    .plan-name {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--subtle);
+      margin-bottom: 0.75rem;
+    }
+
+    .plan-price {
+      font-family: 'Syne', sans-serif;
+      font-size: 42px;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: var(--text);
+      line-height: 1;
+      margin-bottom: 0.25rem;
+    }
+
+    .plan-period {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .plan-note {
+      font-size: 12px;
+      color: var(--accent);
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+    }
+
+    .plan-divider {
+      height: 1px;
+      background: var(--border);
+      margin-bottom: 1.25rem;
+    }
+
+    .plan-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex: 1;
+      margin-bottom: 1.75rem;
+    }
+
+    .plan-feature {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    .plan-feature-check {
+      color: var(--accent);
+      flex-shrink: 0;
+      font-size: 12px;
+      font-weight: 700;
+      margin-top: 1px;
+    }
+
+    .plan-feature.dim { color: var(--subtle); }
+    .plan-feature.dim .plan-feature-check { color: var(--subtle); }
+
+    .plan-btn {
+      display: block;
+      text-align: center;
+      padding: 11px;
+      border-radius: 7px;
+      font-size: 13px;
+      font-weight: 600;
+      transition: opacity 0.15s;
+      cursor: pointer;
+    }
+
+    .plan-btn-primary {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+    }
+
+    .plan-btn-secondary {
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid var(--border);
+    }
+
+    .plan-btn:hover { opacity: 0.8; }
+
+    /* ── CTA ───────────────────────────────────────────── */
+    .cta {
+      padding: 6rem 2.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 60% at 50% 100%, #FF5C0015 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .cta-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(32px, 5vw, 64px);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: var(--text);
+      line-height: 1.05;
+      margin-bottom: 1.25rem;
+    }
+
+    .cta-sub {
+      font-size: 16px;
+      color: var(--muted);
+      margin-bottom: 2.5rem;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* ── FOOTER ────────────────────────────────────────── */
+    .footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .footer-logo {
+      font-family: 'Syne', sans-serif;
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--text);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-link {
+      font-size: 12px;
+      color: var(--subtle);
+      transition: color 0.15s;
+    }
+
+    .footer-link:hover { color: var(--muted); }
+
+    .footer-copy {
+      font-size: 12px;
+      color: var(--subtle);
+    }
+
+  </style>
 </head>
 
 <body>
 
   <!-- HEADER -->
-  <header class="site-header">
-    <div class="logo">Spanda</div>
-   <nav>
-  <a href="#how" class="nav-link">How it works</a>
-  <a href="pricing.html" class="nav-link">Pricing</a>
-  <a href="login.html" class="nav-link">Log in</a>
-  <a href="signup.html" class="btn-primary">Sign up free</a>
-</nav>
+  <header class="header">
+    <div class="header-logo">Spanda<span>.</span></div>
+    <nav class="header-nav">
+      <a href="#how" class="nav-link">How it works</a>
+      <a href="pricing.html" class="nav-link">Pricing</a>
+      <a href="login.html" class="nav-link">Log in</a>
+      <a href="signup.html" class="nav-cta">Start free</a>
+    </nav>
   </header>
 
 
   <!-- HERO -->
   <section class="hero">
-    <p class="hero-label">AI-powered review platform</p>
-    <h1 class="hero-title">Clients say what they feel.<br>Artists know what to do.</h1>
-    <p class="hero-subtitle">
-      Spanda converts vague emotional feedback into structured revision briefs —
-      so your team can stop guessing and start creating.
+    <div class="hero-grid"></div>
+    <div class="hero-eyebrow">For VFX and Animation studios</div>
+    <h1 class="hero-title">
+      Stop guessing<br>
+      what your client<br>
+      <em>actually</em> means.
+    </h1>
+    <p class="hero-sub">
+      Spanda turns vague client feedback into structured revision briefs
+      your team can act on immediately. No more back-and-forth. No more guessing.
     </p>
-    <a href="upload.html" class="btn-primary">Start a review</a>
+    <div class="hero-actions">
+      <a href="signup.html" class="btn-primary">Start for free</a>
+      <a href="#demo" class="btn-ghost">See how it works &darr;</a>
+    </div>
+  </section>
+
+
+  <!-- PAIN -->
+  <section class="pain">
+    <p class="section-label">The problem</p>
+    <h2 class="pain-title">
+      Every studio knows<br>this conversation.
+    </h2>
+    <p class="pain-body">
+      The client watches the render and says something. You nod.
+      You go back to your desk and spend the next hour trying to figure out
+      what they actually meant. Then you guess wrong and do it again.
+    </p>
+    <div class="pain-quotes">
+      <div class="pain-quote">Make it more cinematic.</div>
+      <div class="pain-quote">It feels off somehow.</div>
+      <div class="pain-quote">Needs more energy.</div>
+      <div class="pain-quote">Looks a bit cheap.</div>
+      <div class="pain-quote">I don't know, just&hellip; more.</div>
+    </div>
   </section>
 
 
   <!-- DEMO -->
-  <section class="demo-section">
-    <div class="demo-box">
-      <p class="demo-label">Client says</p>
-      <p class="demo-quote">"Needs more energy."</p>
-      <p class="demo-label">Spanda asks</p>
-      <p class="demo-question">What feels lacking?</p>
-      <div class="tag-group">
-        <span class="tag">Movement</span>
-        <span class="tag">Editing pace</span>
-        <span class="tag">Music</span>
-        <span class="tag">Visual effects</span>
-        <span class="tag">Other</span>
+  <section class="demo" id="demo">
+    <div class="demo-inner">
+      <div class="demo-header">
+        <p class="section-label">How Spanda works</p>
+        <h2 class="demo-title">From feeling to action<br>in three steps.</h2>
+        <p class="demo-sub">Real feedback. Real output. No interpretation required.</p>
+      </div>
+
+      <div class="demo-flow">
+
+        <div class="demo-card">
+          <p class="demo-card-label">01 — Client says</p>
+          <div class="client-bubble">
+            "Needs more energy. Something about the pacing isn't working."
+          </div>
+          <p class="client-meta">Submitted via Spanda review link — no account needed</p>
+        </div>
+
+        <div class="demo-arrow">→</div>
+
+        <div class="demo-card">
+          <p class="spanda-badge">Spanda AI</p>
+          <p class="spanda-question">What feels like it's lacking energy?</p>
+          <div class="spanda-options">
+            <div class="spanda-option">The editing pace</div>
+            <div class="spanda-option selected">Movement and motion</div>
+            <div class="spanda-option">Music and sound</div>
+            <div class="spanda-option">Visual effects</div>
+          </div>
+        </div>
+
+        <div class="demo-arrow">→</div>
+
+        <div class="demo-card">
+          <p class="demo-card-label">03 — Revision brief</p>
+          <div class="brief-tasks">
+            <div class="brief-task">
+              <span class="brief-task-arrow">→</span>
+              <span>Increase motion blur intensity on all fast camera moves</span>
+            </div>
+            <div class="brief-task">
+              <span class="brief-task-arrow">→</span>
+              <span>Add subtle camera shake to the action sequence in scene 3</span>
+            </div>
+            <div class="brief-task">
+              <span class="brief-task-arrow">→</span>
+              <span>Boost particle density on the explosion — aim for 2x current count</span>
+            </div>
+            <div class="brief-task">
+              <span class="brief-task-arrow">→</span>
+              <span>Tighten the cut at 0:42 — current hold is too long</span>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
 
 
   <!-- HOW IT WORKS -->
-  <section class="how-section" id="how">
-    <p class="section-label">How it works</p>
-    <div class="steps-grid">
-
-      <div class="step-card">
-        <span class="step-num">01</span>
-        <h3 class="step-title">Artist uploads work</h3>
-        <p class="step-desc">Share a render, animation, or sequence for client review.</p>
+  <section class="how" id="how">
+    <p class="section-label">The workflow</p>
+    <h2 class="how-title">Built for how studios actually work.</h2>
+    <div class="how-steps">
+      <div class="how-step active">
+        <div class="how-step-num">01</div>
+        <div class="how-step-title">Artist uploads work</div>
+        <p class="how-step-desc">Upload a render, animation, or sequence. Spanda generates a secure review link instantly.</p>
       </div>
-
-      <div class="step-card">
-        <span class="step-num">02</span>
-        <h3 class="step-title">Client gives feedback</h3>
-        <p class="step-desc">In their own words. Emotional, vague, intuitive — anything goes.</p>
+      <div class="how-step">
+        <div class="how-step-num">02</div>
+        <div class="how-step-title">Client reviews</div>
+        <p class="how-step-desc">Client opens the link — no account needed. They watch the work and share their honest reaction.</p>
       </div>
-
-      <div class="step-card">
-        <span class="step-num">03</span>
-        <h3 class="step-title">Spanda clarifies intent</h3>
-        <p class="step-desc">AI asks targeted questions to understand what the client really means.</p>
+      <div class="how-step">
+        <div class="how-step-num">03</div>
+        <div class="how-step-title">Spanda clarifies</div>
+        <p class="how-step-desc">AI reads the feedback and asks one targeted question to identify exactly what the client means.</p>
       </div>
-
-      <div class="step-card">
-        <span class="step-num">04</span>
-        <h3 class="step-title">Artist gets a brief</h3>
-        <p class="step-desc">Structured, actionable revision tasks. No guesswork needed.</p>
+      <div class="how-step">
+        <div class="how-step-num">04</div>
+        <div class="how-step-title">Artist executes</div>
+        <p class="how-step-desc">A structured revision brief lands in the artist's dashboard. Specific tasks. No interpretation needed.</p>
       </div>
-
     </div>
   </section>
 
 
-  <!-- REVISION BRIEF EXAMPLE -->
-  <section class="brief-section">
-    <p class="section-label">Example output</p>
-    <div class="brief-card">
-      <p class="brief-title">Revision Brief — Scene 03</p>
-      <ul class="brief-list">
-        <li>Increase cut frequency in the action sequence</li>
-        <li>Boost motion blur intensity on camera movements</li>
-        <li>Raise music tempo and energy in the third act</li>
-        <li>Add particle effects to the explosion sequence</li>
-      </ul>
+  <!-- PRICING PREVIEW -->
+  <section class="pricing">
+    <div class="pricing-inner">
+      <div class="pricing-header">
+        <div>
+          <p class="section-label">Pricing</p>
+          <h2 class="pricing-title">Simple pricing.<br>No surprises.</h2>
+        </div>
+        <a href="pricing.html" class="pricing-link">Full pricing details →</a>
+      </div>
+
+      <div class="pricing-cards">
+
+        <div class="plan-card">
+          <p class="plan-name">Free</p>
+          <div class="plan-price">$0</div>
+          <p class="plan-period">forever</p>
+          <p class="plan-note">&nbsp;</p>
+          <div class="plan-divider"></div>
+          <ul class="plan-features">
+            <li class="plan-feature"><span class="plan-feature-check">✓</span> 1 project per month</li>
+            <li class="plan-feature"><span class="plan-feature-check">✓</span> 1 feedback round per project</li>
+            <li class="plan-feature"><span class="plan-feature-check">✓</span> AI clarifying questions</li>
+            <li class="plan-feature"><span class="plan-feature-check">✓</span> Structured revision brief</li>
+            <li class="plan-feature dim"><span class="plan-feature-check">✕</span> Spanda branding on pages</li>
+          </ul>
+          <a href="signup.html" class="plan-btn plan-btn-secondary">Get started free</a>
+        </div>
+
+        <div class="plan-card featured">
+          <div class="plan-badge">50 spots only</div>
+          <p class="plan-name">Founding Member</p>
+          <div class="plan-price">$99</div>
+          <p class="plan-period">per year</p>
+          <p class="plan-note">$8.25/month — locked forever</p>
+          <div class="plan-divider"></div>
+          <ul class="plan-features">
+            <li class="plan-feature"><span class="plan-feature-check">✓</span> Unlimited projects</li>
+            <li class="plan-feature"><span class="plan-feature-check">✓</span> Unlimited feedback rounds</li>
+            <li class="plan-feature"><span class="plan-feature-check">✓</span> No Spanda branding</li>
+            <li class="plan-feature"><span class="plan-feature-check">✓</span> Full project history</li>
+            <li class="plan-feature"><span class="plan-feature-check">✓</span> Price locked forever</li>
+          </ul>
+          <a href="https://spanda.lemonsqueezy.com/checkout/buy/796f72cc-9e7f-4145-a76f-9f0ba7ec4dff" class="plan-btn plan-btn-primary" target="_blank">Claim founding spot</a>
+        </div>
+
+        <div class="plan-card">
+          <p class="plan-name">Pro</p>
+          <div class="plan-price">$19</div>
+          <p class="plan-period">per month</p>
+          <p class="plan-note">&nbsp;</p>
+          <div class="plan-divider"></div>
+          <ul class="plan-features">
+            <li class="plan-feature"><span class="plan-feature-check">✓</span> Unlimited projects</li>
+            <li class="plan-feature"><span class="plan-feature-check">✓</span> Unlimited feedback rounds</li>
+            <li class="plan-feature"><span class="plan-feature-check">✓</span> No Spanda branding</li>
+            <li class="plan-feature"><span class="plan-feature-check">✓</span> Full project history</li>
+          </ul>
+          <a href="https://spanda.lemonsqueezy.com/checkout/buy/736500cb-b7e2-464c-9b38-de93b39f2f11" class="plan-btn plan-btn-secondary" target="_blank">Start with Pro</a>
+        </div>
+
+      </div>
     </div>
   </section>
 
 
   <!-- CTA -->
-  <section class="cta-section">
-    <h2 class="cta-title">Ready to stop guessing?</h2>
-    <p class="cta-subtitle">Join the waitlist for early access to Spanda.</p>
-    <a href="upload.html" class="btn-primary">Get early access</a>
+  <section class="cta">
+    <h2 class="cta-title">
+      One project.<br>
+      That's all it takes.
+    </h2>
+    <p class="cta-sub">
+      Run one real project through Spanda. If it doesn't save you
+      time on the next revision round, don't upgrade.
+    </p>
+    <a href="signup.html" class="btn-primary">Start for free — no card needed</a>
   </section>
 
 
   <!-- FOOTER -->
-  <footer class="site-footer">
-    <p>© 2025 Spanda. All rights reserved.</p>
+  <footer>
+    <div class="footer">
+      <div class="footer-logo">Spanda.</div>
+      <div class="footer-links">
+        <a href="pricing.html" class="footer-link">Pricing</a>
+        <a href="login.html" class="footer-link">Log in</a>
+        <a href="signup.html" class="footer-link">Sign up</a>
+        <a href="mailto:dsignlymedia@gmail.com" class="footer-link">Contact</a>
+      </div>
+      <p class="footer-copy">© 2026 Spanda. All rights reserved.</p>
+    </div>
   </footer>
 
-</body>
 
+  <script>
+    // Redirect logged-in users straight to dashboard
+    const session = JSON.parse(localStorage.getItem('spanda_session'));
+    const accessToken = session?.access_token || session?.session?.access_token;
+    if (accessToken) {
+      window.location.href = 'dashboard.html';
+    }
+  </script>
+
+</body>
 </html>
